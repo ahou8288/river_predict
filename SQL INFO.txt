@@ -1,0 +1,23 @@
+GAUGES
+Table has 615 rows.
+The columns are; id, name, lat, long, elev
+The first row contains;
+(201001, u'OXLEY RIVER AT EUNGELLA ', -28.3537, 153.2931, 42.406)
+
+STATIONS
+Table has 5017 rows.
+The columns are; id, name, opened_year, closed, lat, long, elev, state
+The first row contains;
+(46000, u' TIBOOBURRA (BINERAH DOWNS)', 1939, None, -29.03, 141.55, 200, u' NSW')
+
+RAINFALL
+Table has 72053968 rows.
+The columns are; station_id, year, month, day, rainfall, period, quality
+The first row contains;
+(46000, 1939, 4, 1, 0, None, u'Y')
+
+LEVELS
+Table has 7054076 rows.
+The columns are; gauge_id, year, month, day, level, quality
+The first row contains;
+(201001, 1957, 3, 4, 0.485, 130)
