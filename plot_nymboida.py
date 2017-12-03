@@ -93,6 +93,7 @@ for i in range(start, end + 1):
     graph_data_y2.append(today_rain)
     output.append(today_data)
 
+# Write Values to CSV
 # print(output)
 # f=open('nymbo.csv','w')
 # f.write('\n'.join([','.join(i) for i in output]))
@@ -102,14 +103,17 @@ import matplotlib.pyplot as plt
 fig, ax1 = plt.subplots()
 
 import matplotlib.dates as mdates
-plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%Y'))
-plt.gca().xaxis.set_major_locator(mdates.YearLocator(3))
+# plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%Y'))
+# plt.gca().xaxis.set_major_locator(mdates.YearLocator(3))
+plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%m-%Y'))
+plt.gca().xaxis.set_major_locator(mdates.MonthLocator())
 
-plt.title("Nymboida")
+plt.title("Nymboida rain and river levels")
 ax1.set_xlabel('Date')
 ax1.plot(graph_data_x, graph_data_y1, 'b-')
 ax1.tick_params('y', colors='b')
 ax1.set_ylabel('Level (m)', color='b')
+ax1.hlines(1,datetime.datetime.fromordinal(start),datetime.datetime.fromordinal(end))
 
 ax2 = ax1.twinx()
 ax2.plot(graph_data_x, graph_data_y2, 'r-')
@@ -120,4 +124,6 @@ ax1.grid(True)
 plt.gcf().autofmt_xdate()
 
 plt.tight_layout()
+plt.xlim(datetime.date(2016,1,1),datetime.date(2017,9,1))
+plt.savefig('nymboida_graph.png')
 plt.show()
