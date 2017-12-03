@@ -1,6 +1,6 @@
 # Database
 import sqlite3
-import csv
+# import csv
 import datetime
 
 
@@ -61,5 +61,31 @@ start = 698222
 # end = max(levels[-1][0], rain[-1][0]).toordinal()
 end = 736555
 
+def dates_to_dict(data):
+    output={}
+    for i in data:
+        output[i[0].toordinal()]=i[1]
+    return output
+
+rain_dict = dates_to_dict(rain)
+levels_dict = dates_to_dict(levels)
+
+output=[]
 for i in range(start,end+1):
-    print(i)
+    # print(i)
+    today = datetime.datetime.fromordinal(i)
+    today_rain = 'NaN'
+    if i in rain_dict.keys():
+        today_rain=rain_dict[i]
+    today_levels = 'NaN'
+    if i in levels_dict:
+        today_levels=levels_dict[i]
+    today_data=[
+        '{}-{}-{}'.format(today.year,today.month,today.day),
+        str(today_rain),
+        str(today_levels)]
+    output.append(','.join(today_data))
+
+# print(output)
+f=open('nymbo.csv','w')
+f.write('\n'.join(output))
