@@ -27,13 +27,22 @@ levels = sql('''
     ORDER BY year,month,day
     '''.format(nymbo_gauge))
 
+
+def process_dates(data):
+    return [(datetime.date(i[0], i[1], i[2]), i[3]) for i in data]
+
+
+levels = process_dates(levels)
+rain = process_dates(rain)
+
+
 def find_gaps(data):
     subsection = 1
     gaps = []
     sections = []
     for i in range(len(data) - 1):
-        today = datetime.date(data[i][0], data[i][1], data[i][2])
-        tomorrow = datetime.date(data[i + 1][0], data[i + 1][1], data[i + 1][2])
+        today = data[i][0]
+        tomorrow = data[i + 1][0]
         gap = (tomorrow - today).days
         subsection += 1
         if gap > 1:
@@ -41,26 +50,16 @@ def find_gaps(data):
             subsection = 0
             gaps.append(gap)
     sections.append(subsection)
-    return (gaps,sections)
+    return (gaps, sections)
     # return (sorted(gaps),sorted(sections))
+# rain_gaps, rain_sections = find_gaps(rain)
+# levels_gaps, levels_sections = find_gaps(levels)
 
-rain_gaps,rain_sections = find_gaps(rain)
-levels_gaps,levels_sections = find_gaps(levels)
+# print('start and end of dates')
+# start = min(levels[0][0], rain[0][0]).toordinal()
+start = 698222
+# end = max(levels[-1][0], rain[-1][0]).toordinal()
+end = 736555
 
-print('len levels')
-print(len(levels))
-# print(sum(levels_sections))
-print('len rain')
-print(len(rain))
-# print(sum(rain_sections))
-
-print('rain_gaps')
-print(rain_gaps)
-print('rain_sections')
-print(rain_sections)
-
-print('levels_gaps')
-print(levels_gaps)
-print('levels_sections')
-print(levels_sections)
-
+for i in range(start,end+1):
+    print(i)
