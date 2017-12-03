@@ -100,7 +100,10 @@ for i in range(start, end + 1):
 
 import matplotlib.pyplot as plt
 
+fig = plt.figure()
 plt.title("Nymboida")
-plt.plot(graph_data_x,graph_data_y1)
-plt.plot(graph_data_x,graph_data_y2)
+ax1 = fig.add_subplot(111)
+ax2 = fig.add_subplot(111)
+ax1.scatter(graph_data_x, graph_data_y1, marker='.')
+ax2.scatter(graph_data_x, graph_data_y2, marker='.')
 plt.show()
