@@ -56,36 +56,51 @@ def find_gaps(data):
 # levels_gaps, levels_sections = find_gaps(levels)
 
 # print('start and end of dates')
-# start = min(levels[0][0], rain[0][0]).toordinal()
-start = 698222
-# end = max(levels[-1][0], rain[-1][0]).toordinal()
-end = 736555
+# start = max(levels[0][0], rain[0][0]).toordinal()
+start = 714216
+# end = min(levels[-1][0], rain[-1][0]).toordinal()
+end = 736543
+
 
 def dates_to_dict(data):
-    output={}
+    output = {}
     for i in data:
-        output[i[0].toordinal()]=i[1]
+        output[i[0].toordinal()] = i[1]
     return output
 
 rain_dict = dates_to_dict(rain)
 levels_dict = dates_to_dict(levels)
 
-output=[]
-for i in range(start,end+1):
+output = []
+graph_data_x = []
+graph_data_y1 = []
+graph_data_y2 = []
+for i in range(start, end + 1):
     # print(i)
     today = datetime.datetime.fromordinal(i)
     today_rain = 'NaN'
     if i in rain_dict.keys():
-        today_rain=rain_dict[i]
+        today_rain = rain_dict[i]
     today_levels = 'NaN'
     if i in levels_dict:
-        today_levels=levels_dict[i]
-    today_data=[
-        '{}-{}-{}'.format(today.year,today.month,today.day),
+        today_levels = levels_dict[i]
+    today_data = [
+        '{}-{}-{}'.format(today.year, today.month, today.day),
         str(today_rain),
         str(today_levels)]
-    output.append(','.join(today_data))
+    graph_data_x.append(i)
+    graph_data_y1.append(today_levels)
+    graph_data_y2.append(today_rain)
+    output.append(today_data)
 
 # print(output)
-f=open('nymbo.csv','w')
-f.write('\n'.join(output))
+# f=open('nymbo.csv','w')
+# f.write('\n'.join([','.join(i) for i in output]))
+
+
+import matplotlib.pyplot as plt
+
+plt.title("Nymboida")
+plt.plot(graph_data_x,graph_data_y1)
+plt.plot(graph_data_x,graph_data_y2)
+plt.show()
