@@ -88,7 +88,7 @@ for i in range(start, end + 1):
         '{}-{}-{}'.format(today.year, today.month, today.day),
         str(today_rain),
         str(today_levels)]
-    graph_data_x.append(i)
+    graph_data_x.append(i-start)
     graph_data_y1.append(today_levels)
     graph_data_y2.append(today_rain)
     output.append(today_data)
@@ -99,11 +99,22 @@ for i in range(start, end + 1):
 
 
 import matplotlib.pyplot as plt
+#date stuff
 
-fig = plt.figure()
+
+#plotting stuff
+fig, ax1 = plt.subplots()
 plt.title("Nymboida")
-ax1 = fig.add_subplot(111)
-ax2 = fig.add_subplot(111)
-ax1.scatter(graph_data_x, graph_data_y1, marker='.')
-ax2.scatter(graph_data_x, graph_data_y2, marker='.')
+ax1.set_xlabel('Date')
+ax1.plot(graph_data_x,graph_data_y1,'b-')
+ax1.tick_params('y', colors='b')
+ax1.set_ylabel('Level (m)',color='b')
+
+ax2=ax1.twinx()
+ax2.plot(graph_data_x,graph_data_y2,'r-')
+ax2.tick_params('y', colors='r')
+ax2.set_ylabel('Daily Rainfall (mm)',color='r')
+
+ax1.grid(True)
+
 plt.show()
