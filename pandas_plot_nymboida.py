@@ -1,6 +1,6 @@
 # Database
 import sqlite3
-# import csv
+import pandas as pd
 import datetime
 
 
@@ -27,10 +27,17 @@ levels = sql('''
     ORDER BY year,month,day
     '''.format(nymbo_gauge))
 
+conn.close()
+
+df_rain=pd.DataFrame(rain, columns=['year', 'month', 'day', 'rainfall'])
+# print(df_rain.describe)
+df_rain['date']=''
+df_rain.apply(process_date)
+# print(df_rain.describe)
+
 
 def process_dates(data):
     return [(datetime.date(i[0], i[1], i[2]), i[3]) for i in data]
-
 
 levels = process_dates(levels)
 rain = process_dates(rain)
