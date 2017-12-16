@@ -19,30 +19,26 @@ finally:
 for index, entry in enumerate(csv_data):
     csv_data[index][1] = float(entry[1])
     csv_data[index][2] = float(entry[2])
-for i in csv_data:
-    print(i)
 
 num_levels = 3
-num_rainfall = 5
+num_rainfalls = 5
 
 output = []
 
-for index in range(max(num_rainfall,num_levels),len(csv_data)-1):
+
+def has_nan(arr, col):
+    for i in arr:
+        if math.isnan(i[col]):
+            return True
+    return False
+
+for index in range(max(num_rainfalls, num_levels), len(csv_data) - 1):
+    # print(index)
     # Is there a current level
-    if math.isnan(csv_data[index+1][2]):
-        is_valid=True
-        # Is there past rainfall data
-        for i in range(num_rainfall):
-            if math.isnan(csv_data[index-i][1]):
-                is_valid=False
-                break
-        # Is there past level data
-        for i in range(num_levels):
-            if math.isnan(csv_data[index-i][2]):
-                is_valid=False
-                break
-        if is_valid:
-            print(str(index)+' is valid')
-        else:
-            print(str(index)+' is invalid')
-    # break
+    is_valid = True
+    if not math.isnan(csv_data[index + 1][2]) and \
+            not has_nan(csv_data[index - num_rainfalls:index], 1) and \
+            not has_nan(csv_data[index - num_levels:index], 2):
+        print(str(index) + ' is valid ' + str(csv_data[index - 4:index + 1]))
+    else:
+        print(str(index) + ' is invalid ' + str(csv_data[index - 4:index + 1]))
