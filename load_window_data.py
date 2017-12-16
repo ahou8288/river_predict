@@ -33,12 +33,13 @@ def has_nan(arr, col):
     return False
 
 for index in range(max(num_rainfalls, num_levels), len(csv_data) - 1):
-    # print(index)
     # Is there a current level
     is_valid = True
-    if not math.isnan(csv_data[index + 1][2]) and \
+    if not math.isnan(csv_data[index][2]) and \
             not has_nan(csv_data[index - num_rainfalls:index], 1) and \
             not has_nan(csv_data[index - num_levels:index], 2):
-        print(str(index) + ' is valid ' + str(csv_data[index - 4:index + 1]))
+        print(str(index) + ' is valid ' +
+              str(csv_data[index - 5:index]) + ' cur ' + str(csv_data[index]))
     else:
-        print(str(index) + ' is invalid ' + str(csv_data[index - 4:index + 1]))
+        print(str(index) + ' is invalid ' +
+              str(csv_data[index - 5:index]) + ' cur ' + str(csv_data[index]))
