@@ -1,0 +1,6 @@
+=== Task List ===
+* Download rivers at 15 minute interval
+* Decisions about which rainfall station to use for a gauge
+** Use one manually chosen river
+** Use hyperparameter optimisation to select a rainfall station for a gauge
+* Move along rivers and capture all data for selected window and put into a csv format.
