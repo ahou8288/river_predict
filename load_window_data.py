@@ -1,7 +1,13 @@
-# imports
+# This function loads data from a csv and converts it to small sections of data which don't have missing values.
+
+# Imports
 import csv
 import math
+import numpy as np
+import scipy.io as sio
+import pprint
 
+### Process
 # Load all rivers
 # Choose a window
 # Find as much data that fits the window as possible
@@ -20,10 +26,18 @@ for index, entry in enumerate(csv_data):
     csv_data[index][1] = float(entry[1])
     csv_data[index][2] = float(entry[2])
 
+# Choose a window
 num_levels = 3
 num_rainfalls = 5
+output = {
+    'y_vals': [],
+    'x_rainfalls':[],
+    'x_levels':[],
+    'readme': 'y_val contains the next days level.\nx_rainfalls contains 5 rainfall values for the past 5 days (with the most recent rainfall as the first element of the list).\nx_levels contains 3 level values for the past 3 days (with the most recent level as the first element of the list).'
+}
 
-output = []
+# Utility function for finding if an array of numbers has a nan value in a
+# specific column
 
 
 def has_nan(arr, col):
@@ -33,13 +47,20 @@ def has_nan(arr, col):
     return False
 
 for index in range(max(num_rainfalls, num_levels), len(csv_data) - 1):
-    # Is there a current level
     is_valid = True
+    # Check for current level, past rainfalls and past levels
     if not math.isnan(csv_data[index][2]) and \
             not has_nan(csv_data[index - num_rainfalls:index], 1) and \
             not has_nan(csv_data[index - num_levels:index], 2):
-        print(str(index) + ' is valid ' +
-              str(csv_data[index - 5:index]) + ' cur ' + str(csv_data[index]))
-    else:
-        print(str(index) + ' is invalid ' +
-              str(csv_data[index - 5:index]) + ' cur ' + str(csv_data[index]))
+        # Build an array to send/save
+        output['y_vals'].append(csv_data[index][2])
+
+        rainfalls = [i[1] for i in csv_data[index - num_rainfalls:index]]
+        output['x_rainfalls'].append(list(reversed(rainfalls)))
+
+        levels = [i[2] for i in csv_data[index - num_levels:index]]
+        output['x_levels'].append(list(reversed(levels)))
+
+pprint.pprint(output)
+
+sio.savemat('nymbo_window_data.mat', output)
