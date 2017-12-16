@@ -94,9 +94,9 @@ for i in range(start, end + 1):
     output.append(today_data)
 
 # Write Values to CSV
-# print(output)
-# f=open('nymbo.csv','w')
-# f.write('\n'.join([','.join(i) for i in output]))
+print(output)
+f=open('nymbo.csv','w')
+f.write('\n'.join([','.join(i) for i in output]))
 
 
 import matplotlib.pyplot as plt
