@@ -25,18 +25,11 @@ for index, entry in enumerate(csv_data):
 # Interpolate missing data
 interpolation_limit = 2
 row_index = 0
-while row_index < len(csv_data) - interpolation_limit - 1:
-    for col_index in range(1, 3):
-        # Check each of the next items for a missing value.
-        # Stop if a non missing value is found.
-
-        # Find out how many values are missing
-        if not math.isnan(csv_data[row_index + 1][col_index]):
-            print('No values are missing')
-        elif not math.isnan(csv_data[row_index + 2][col_index]):
-            print('1 missing')
-            row_index+=1
-        elif not math.isnan(csv_data[row_index + 3][col_index]):
-            print('2 missing')
-            row_index+=2
-    row_index += 1
+should_interpolate = [False] * len(csv_data)
+print(should_interpolate)
+for col_index in range(1, 3):
+    for row_index in range(1, len(csv_data)):
+        for i in range(i, interpolation_limit + 1):
+            if not math.isnan(csv_data[row_index][col_index]) and
+            not math.isnan(csv_data[row_index + i][col_index])
+                should_interpolate[row_index] = True
