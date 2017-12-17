@@ -28,8 +28,8 @@ for index, entry in enumerate(csv_data):
     csv_data[index][2] = float(entry[2])
 
 # Choose a window
-num_levels = 3
-num_rainfalls = 5
+num_levels = 10
+num_rainfalls = 10
 output = {
     'window_num_levels': num_levels,
     'window_num_rainfalls': num_rainfalls,
@@ -64,6 +64,6 @@ for index in range(max(num_rainfalls, num_levels), len(csv_data) - 1):
         levels = [i[2] for i in csv_data[index - num_levels:index]]
         output['x_levels'].append(list(reversed(levels)))
 
-pprint.pprint(output)
+# pprint.pprint(output)
 
 sio.savemat('nymbo_window_data.mat', output)
