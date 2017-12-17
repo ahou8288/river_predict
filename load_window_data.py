@@ -1,4 +1,5 @@
-# This function loads data from a csv and converts it to small sections of data which don't have missing values.
+# This function loads data from a csv and converts it to small sections of
+# data which don't have missing values.
 
 # Imports
 import csv
@@ -7,7 +8,7 @@ import numpy as np
 import scipy.io as sio
 import pprint
 
-### Process
+# Process
 # Load all rivers
 # Choose a window
 # Find as much data that fits the window as possible
@@ -30,9 +31,11 @@ for index, entry in enumerate(csv_data):
 num_levels = 3
 num_rainfalls = 5
 output = {
+    'window_num_levels': num_levels,
+    'window_num_rainfalls': num_rainfalls,
     'y_vals': [],
-    'x_rainfalls':[],
-    'x_levels':[],
+    'x_rainfalls': [],
+    'x_levels': [],
     'readme': 'y_val contains the next days level.\nx_rainfalls contains 5 rainfall values for the past 5 days (with the most recent rainfall as the first element of the list).\nx_levels contains 3 level values for the past 3 days (with the most recent level as the first element of the list).'
 }
 
