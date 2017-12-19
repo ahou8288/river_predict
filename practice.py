@@ -79,7 +79,7 @@ Compressing  204001.csv
 
 Everything is Ok
 </div><script type="text/javascript">
-  parent.rsrscf_org.document.getElementById('download').innerHTML='<span class="anchor" onclick="location.href=\'http://realtimedata.water.nsw.gov.au/wgen/users//818542479/204001_20171220.zip?20171220064728\';" id="downloadlink">click here to download 15 minutes data zip file</span>';
+  parent.rsrscf_org.document.getElementById('download').innerHTML='<span class="anchor" onclick="line=\'http://realtimedata.water.nsw.gov.au/wgen/users//818542479/204001_20171220.zip?20171220064728\';" id="downloadlink">click here to download 15 minutes data zip file</span>';
   parent.rsrscf_org.document.getElementById('download').style.display = 'block';
 </script>
   </div>
@@ -87,11 +87,17 @@ Everything is Ok
 </body>
 </html>'''
 
-print('downloadlink' in content)
-for row in content.split('\n'):
-    if 'downloadlink' in row:
-        print(row)
-        link_url = row.split('onclick="location.href=\'')[1]
-        link_url = link_url.split('\';" id="downloadlink">')[0]
-        # link_url = link_url[:len(link_url)-78]
-        print(link_url)
+# print('downloadlink' in content)
+# for row in content.split('\n'):
+#     if 'downloadlink' in row:
+#         print(row)
+#         link_url = row.split('onclick="location.href=\'')[1]
+#         link_url = link_url.split('\';" id="downloadlink">')[0]
+#         # link_url = link_url[:len(link_url)-78]
+#         print(link_url)
+
+row = '''parent.rsrscf_org.document.getElementById('download').innerHTML='<span class="anchor" onclick="location.href=\\'http://realtimedata.water.nsw.gov.au/wgen/users//818542479/204001_20171220.zip?20171220070155\\';" id="downloadlink">click here to download 15 minutes data zip file</span>';'''
+print(row)
+link_url = row.split('onclick="location.href=\\\'')[1]
+link_url = link_url.split('\\\';" id="downloadlink">')[0]
+print(link_url)
