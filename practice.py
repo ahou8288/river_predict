@@ -91,6 +91,7 @@ print('downloadlink' in content)
 for row in content.split('\n'):
     if 'downloadlink' in row:
         print(row)
-        link_url = row[112:]
-        link_url = link_url[:len(link_url)-78]
+        link_url = row.split('onclick="location.href=\'')[1]
+        link_url = link_url.split('\';" id="downloadlink">')[0]
+        # link_url = link_url[:len(link_url)-78]
         print(link_url)

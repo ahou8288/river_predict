@@ -36,13 +36,16 @@ def get_river():
 
     # Search for the right line
     for line in response_text.split('\n'):
+        print(line)
         if 'downloadlink' in line:
-            download_url = row[112:]
-            download_url = download_url[:len(download_url)-78]
+            download_url = line.split('onclick="location.href=\'')[1]
+            download_url = download_url.split('\';" id="downloadlink">')[0]
 
     print(download_url)
 
     # Download the zip from the url in the response.
     r2 = requests.get(download_url, cookies)
+
+    print('Downlaod complete.')
 
 get_river()
