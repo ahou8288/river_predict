@@ -28,15 +28,15 @@ for index, entry in enumerate(csv_data):
     csv_data[index][2] = float(entry[2])
 
 # Choose a window
-num_levels = 10
-num_rainfalls = 10
+num_levels = 100
+num_rainfalls = num_levels
 output = {
     'window_num_levels': num_levels,
     'window_num_rainfalls': num_rainfalls,
     'y_vals': [],
     'x_rainfalls': [],
     'x_levels': [],
-    'readme': 'y_val contains the next days level.\nx_rainfalls contains 5 rainfall values for the past 5 days (with the most recent rainfall as the first element of the list).\nx_levels contains 3 level values for the past 3 days (with the most recent level as the first element of the list).'
+    'readme': 'y_vals contains the next days level.\nx_rainfalls contains 5 rainfall values for the past 5 days (with the most recent rainfall as the first element of the list).\nx_levels contains 3 level values for the past 3 days (with the most recent level as the first element of the list).'
 }
 
 # Utility function for finding if an array of numbers has a nan value in a
@@ -65,5 +65,5 @@ for index in range(max(num_rainfalls, num_levels), len(csv_data) - 1):
         output['x_levels'].append(list(reversed(levels)))
 
 # pprint.pprint(output)
-
-sio.savemat('nymbo_window_data.mat', output)
+print(len(output['y_vals']))
+# sio.savemat('nymbo_window_data.mat', output)
