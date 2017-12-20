@@ -1,11 +1,29 @@
 import requests
 
 
-def get_river():
+def get_river(river_num, year_start, year_end, discharge=False):
     # Download a river
 
-    # url = "http://realtimedata.water.nsw.gov.au/cgi/webhyd.pl?co=204001&t=rscf_org&v=100.00_100.00_CP,100.00_141.00_CP&vn=Stream+Water+Level,Discharge+Rate&ds=CP,CP&p=Custom,1,1,custom,1&pp=0,0&r=level,rate&o=Download,download&i=15+minutes,Minute,15&cat=rs&d1=00:00_20/12/2012&d2=00:00_20/12/2017&1513713623806"
-    url = "http://realtimedata.water.nsw.gov.au/cgi/webhyd.pl?co=204001&t=rscf_org&v=100.00_100.00_CP,100.00_141.00_CP&vn=Stream+Water+Level,Discharge+Rate&ds=CP,CP&p=Custom,1,1,custom,1&pp=0,0&r=level,rate&o=Download,download&i=15+minutes,Minute,15&cat=rs&d1=00:00_20/12/2012&d2=00:00_20/12/2017&1513716366231"
+    # Build the url
+    url = (
+        "http://realtimedata.water.nsw.gov.au/cgi/webhyd.pl?co={river}"
+        "&t=rscf_org&v=100.00_100.00_CP{discharge1}"
+        "&vn=Stream+Water+Level{discharge2}&ds"
+        "=CP{discharge3}&p=Custom,1,1,custom,1&pp=0{discharge4}"
+        "&r=level{discharge5}&o=Download,download&i=15+minutes,Minute,15&cat=rs&d1=00:00_"
+        "{start_date}&d2=00:00_{end_date}&1513716366231"
+    )
+    url_args = {
+        'river': river_num,
+        'discharge1': ",100.00_141.00_CP" if discharge else "",
+        'discharge2': ",Discharge+Rate" if discharge else "",
+        'discharge3': ",CP" if discharge else "",
+        'discharge4': ",0" if discharge else "",
+        'discharge5': ",rate" if discharge else "",
+        'start_date': "01/01/{}".format(year_start),
+        'end_date': "01/01/{}".format(year_end)
+    }
+    url = url.format(**url_args)
 
     # Default cookies
     cookies = {
@@ -50,4 +68,4 @@ def get_river():
         zip_file.write(r2.content)
     print('Download complete.')
 
-get_river()
+get_river(204001, 2017, 2018, False)
