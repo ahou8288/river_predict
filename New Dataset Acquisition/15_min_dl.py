@@ -1,13 +1,4 @@
 import requests
-from requests.adapters import HTTPAdapter
-from requests.packages.urllib3.util.retry import Retry
-
-sessions = requests.Session()
-retry = Retry(connect=3, backoff_factor=0.5)
-adapter = HTTPAdapter(max_retries=retry)
-sessions.mount('http://', adapter)
-sessions.mount('https://', adapter)
-
 from time import sleep
 
 
@@ -50,7 +41,7 @@ def get_river(river_num, year_start, year_end, discharge=False):
     # Ask website to prepare download
     sleep(4)
     try:
-        r = sessions.get(url, cookies=cookies)
+        r = requests.get(url, cookies=cookies)
     except requests.exceptions.ConnectionError:
         print("Connection refused")
         return
@@ -77,7 +68,7 @@ def get_river(river_num, year_start, year_end, discharge=False):
     # Download the zip from the url in the response.
     sleep(4)
     try:
-        r2 = sessions.get(download_url, cookies)
+        r2 = requests.get(download_url, cookies)
     except requests.exceptions.ConnectionError:
         print("Connection refused")
         return
