@@ -31,7 +31,7 @@ def get_river(river_num, year_start, year_end, discharge=False):
         'fontsize': '80.01',
         'plotsize': 'normal',
         'username': 'webuser',
-        'userid': '341369628',
+        'userid': '935272215',
         'userclass': 'anon',
         'is_admin': '0',
         'language': 'English',
@@ -86,4 +86,3 @@ for i in range(1950, 2020, 10):
     # print(i)
     print('Downloading year {} to {}.'.format(i, i + 10))
     get_river(204001, i, i + 1, False)
-    break
