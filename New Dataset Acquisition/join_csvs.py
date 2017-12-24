@@ -9,8 +9,17 @@ first = csv_folder + csv_list[0]
 def process_csv(filename):
     import pandas
     # Load filename as string/ lines
-    df = pandas.read_csv(filename, header=2)
+    skip = [0, 1, 3]
+    try:
+        df = pandas.read_csv(filename, skiprows=skip, usecols=[
+                             'Date', 'Level (Metres)', 'Discharge (ML/d)'])
+    except ValueError:  # Data does not have discharge volume
+        df = pandas.read_csv(filename, skiprows=skip, usecols=[
+                             'Date', 'Level (Metres)'])
 
-    print(df.head(10))
+    print(df.head(5))
+    print()
+
+    print(df.describe())
 
 process_csv(first)
