@@ -1,0 +1,8 @@
+.gitignore
+__pycache__
+mydb.db
+Downloaded Rivers
+chromedriver.exe
+geckodriver.log
+*.zip
+New Dataset
