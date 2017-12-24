@@ -1,25 +1,34 @@
+import pandas as pd
 from pathlib import Path
-csv_folder = str(Path(__file__).parent.parent) + '/New Dataset/CSVs/'
 import os
+
+print('Finding files to load.')
+csv_folder = str(Path(__file__).parent.parent) + '/New Dataset/CSVs/'
 csv_list = os.listdir(csv_folder)
 
-first = csv_folder + csv_list[0]
-
-
 def process_csv(filename):
-    import pandas
-    # Load filename as string/ lines
-    skip = [0, 1, 3]
+    print('Loading: ' + filename)
+    skip = [0, 1, 3]  # skip invalid header rows
+    # Try to load in csv file using pandas
     try:
-        df = pandas.read_csv(filename, skiprows=skip, usecols=[
-                             'Date', 'Level (Metres)', 'Discharge (ML/d)'])
+        df = pd.read_csv(csv_folder + filename, skiprows=skip, usecols=[
+            'Date', 'Level (Metres)', 'Discharge (ML/d)'])
     except ValueError:  # Data does not have discharge volume
-        df = pandas.read_csv(filename, skiprows=skip, usecols=[
-                             'Date', 'Level (Metres)'])
+        df = pd.read_csv(csv_folder + filename, skiprows=skip, usecols=[
+            'Date', 'Level (Metres)'])
 
-    print(df.head(5))
-    print()
+    return df
 
-    print(df.describe())
+# Read all the csvs
+print('Loading all dataframes.')
+dataframes = list(map(process_csv, sorted(csv_list)))
 
-process_csv(first)
+print('Joining all loaded dataframes.')
+df = pd.concat(dataframes)
+del dataframes # free memory
+
+# Remove missing data
+print('Removing missing values.')
+df.dropna(how='all')
+
+print(df.describe())
