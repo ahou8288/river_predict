@@ -23,10 +23,10 @@ def process_csv(filename):
     # Try to load in csv file using pandas
     try:
         df = pd.read_csv(csv_folder + filename, skiprows=skip, usecols=[
-            'Date', 'Level (Metres)', 'Discharge (ML/d)'])#, parse_dates=['Date'])
+            'Date', 'Level (Metres)', 'Discharge (ML/d)'])
     except ValueError:  # Data does not have discharge volume
         df = pd.read_csv(csv_folder + filename, skiprows=skip, usecols=[
-            'Date', 'Level (Metres)'])#, parse_dates=['Date'])
+            'Date', 'Level (Metres)'])
     return fix_names(df)
 
 # Read all the csvs
@@ -40,9 +40,6 @@ print('Converting to date type.')
 df['Date'] = pd.to_datetime(df.Date, format='%H:%M:%S %d/%m/%Y')
 
 print('Sorting based on date.')
-# df.sort_index(inplace=True)
-
-print(df.info(memory_usage=True))
 
 print('Writing to file')
 pickle_path = str(Path(__file__).parent.parent) + \
