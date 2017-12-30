@@ -1,4 +1,5 @@
 import pandas
+pandas.set_option('display.width',200)
 from pathlib import Path
 
 pickle_path = str(Path(__file__).parent.parent) + \
@@ -21,6 +22,7 @@ df['past_levels'] = df[col_names].values.tolist()
 df.drop(col_names, inplace=True, axis=1)
 
 print('Columns created.')
-print(df.iloc[10:20])
 
 df.set_index('Date', inplace=True)
+print(df.head(10))
+print(df.tail(10))
