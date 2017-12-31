@@ -8,7 +8,7 @@ def sql(query):
     c.execute(query)
     return c.fetchall()
 
-conn = sqlite3.connect('mydb.db')
+conn = sqlite3.connect('../old_dataset/mydb.db')
 c = conn.cursor()
 
 nymbo_gauge = 204001

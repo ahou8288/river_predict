@@ -8,7 +8,7 @@ def sql(query):
     c.execute(query)
     return c.fetchall()
 
-conn = sqlite3.connect('mydb.db')
+conn = sqlite3.connect('../old_dataset/mydb.db')
 c = conn.cursor()
 
 nymbo_gauge = 204001
@@ -94,9 +94,9 @@ for i in range(start, end + 1):
     output.append(today_data)
 
 # Write Values to CSV
-print(output)
-f=open('nymbo.csv','w')
-f.write('\n'.join([','.join(i) for i in output]))
+# print(output)
+# f=open('nymbo.csv','w')
+# f.write('\n'.join([','.join(i) for i in output]))
 
 
 import matplotlib.pyplot as plt
