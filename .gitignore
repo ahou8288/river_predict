@@ -5,4 +5,5 @@ Downloaded Rivers
 chromedriver.exe
 geckodriver.log
 *.zip
-New Dataset
+new_dataset
+*.csv
