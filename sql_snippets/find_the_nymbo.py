@@ -1,7 +1,7 @@
 # Database
 import sqlite3
 
-conn = sqlite3.connect('mydb.db')
+conn = sqlite3.connect('../old_dataset/mydb.db')
 c = conn.cursor()
 
 nymbo_gauge=204001
