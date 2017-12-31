@@ -8,7 +8,7 @@ def print_log(message,priority):
 	if priority>=threshold:
 		print(message)
 def make_file(river_num):
-	base_path="C:\\Users\\andrew\\Dropbox\\Uni assignments\\RiverDownload\\Downloaded Rivers"
+	base_path="../old_dataset/Downloaded\\ Rivers"
 	file_name=river_num+'_failed.txt'
 	open(base_path+'\\'+file_name, 'a').close()
 	print_log('failure file created',2)
@@ -70,7 +70,7 @@ all_rivers=['201001','201005','201012','201015','201900','202001','202002','2030
 #Check against downloaded files
 from os import listdir
 from os.path import isfile, join
-mypath="C:\\Users\\andrew\\Dropbox\\Uni assignments\\RiverDownload\\Downloaded Rivers"
+mypath="../old_dataset/Downloaded Rivers"
 downloaded_rivers = [f.split('_')[0] for f in listdir(mypath) if isfile(join(mypath, f))]
 not_downloaded=[river for river in all_rivers if river not in downloaded_rivers]
 
