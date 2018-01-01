@@ -1,32 +1,12 @@
+import collections
 import pandas
+import math
 import numpy
+from pathlib import Path
 pandas.set_option('display.width', 200)
 # pandas.set_option('display.max_rows', 500)
-from pathlib import Path
+
 steps_der_day = 96
-
-
-def create_history_column(col_name, num_timesteps, input_df, verbose=False):
-    if verbose:
-        print('Creating column history for {} with {} time steps.'.format(
-            col_name, num_timesteps))
-    new_col_name = 'Past_' + col_name.lower()
-    temp_names_list = []
-    # Create columns 1 by one
-    for i in range(1, previous_levels + 1):
-        if verbose and i % 20 == 0:
-            print('Created {} columns.'.format(i))
-        temp_col_name = 'prev' + str(i)
-        # Store column names to use then remove them later.
-        temp_names_list.append(temp_col_name)
-        input_df = input_df.assign(
-            **{temp_col_name: input_df[col_name].shift(i)})
-        input_df[temp_col_name] = input_df[temp_col_name].round(3)
-    # Aggregate columns into a list
-    input_df[new_col_name] = input_df[temp_names_list].values.tolist()
-    # Drop temporary columns
-    input_df.drop(temp_names_list, inplace=True, axis=1)
-    return input_df
 
 pickle_path = str(Path(__file__).parent.parent) + \
     '/new_dataset/Pickles/combined_csvs.pickle'
@@ -53,19 +33,41 @@ full_df['Rainfall'].fillna(
 # Adjust for 15 minute time period
 full_df['Rainfall'] /= steps_der_day
 
+print('Rounding data.')
+full_df['Rainfall'] = full_df['Rainfall'].round(3)
+full_df['Discharge'] = full_df['Discharge'].round(3)
 
-print('Using a rolling window to look at thingos')
+print('Writing all gaussian estimation training data to file.')
+# creating empty data structures to hold window.
+num_stored_rain = 5
+num_stored_lvl = 5
+stored_rain = collections.deque(num_stored_rain * [math.nan], num_stored_rain)
+stored_lvl = collections.deque(num_stored_lvl * [math.nan], num_stored_lvl)
 
+output = {
+    'num_stored_rain': num_stored_rain,
+    'num_stored_lvl': num_stored_lvl,
+    'y_vals': [],
+    'x_rainfalls': [],
+    'x_levels': [],
+}
 
-def rolling_save(input_rows):
-    # Rolling save function
-    # numpy.savetxt('test.txt', 1)
-    return input_rows[1]
+for index, row in full_df.iterrows():
+    if index % 5000 ==0:
+        print('Index {}'.format(index))
+    output['y_vals'].append(row.Discharge)
+    output['x_rainfalls'].append(list(stored_rain))
+    output['x_levels'].append(list(stored_lvl))
+    stored_rain.appendleft(row.Rainfall)
+    stored_lvl.appendleft(row.Discharge)
+    # if index > 4:
+    #     break
 
-full_df.set_index('Date',inplace=True)
-res = full_df.rolling(3).apply(rolling_save)
-print(res)
+# import pprint
+# pprint.pprint(output)
 
-print('Printing dataframe.')
-# print(full_df.iloc[1000:1500])
-# print(full_df.describe())
+print('Saving file')
+outfile_name = '../new_dataset/nymboida_gaussian.mat'
+import scipy.io as sio
+sio.savemat(outfile_name, output)
+print('Finished.')
