@@ -1,6 +1,7 @@
 import pandas
+import numpy
 pandas.set_option('display.width', 200)
-pandas.set_option('display.max_rows', 500)
+# pandas.set_option('display.max_rows', 500)
 from pathlib import Path
 steps_der_day = 96
 
@@ -53,14 +54,18 @@ full_df['Rainfall'].fillna(
 full_df['Rainfall'] /= steps_der_day
 
 
-print('Creating new columns with history.')
-# Column will have a list with the previous river levels
-previous_levels = 500
-previous_rainfalls = 500
-full_df = create_history_column('Rainfall', previous_rainfalls, full_df, True)
-full_df = create_history_column('Discharge', previous_levels, full_df, True)
-print('Columns created.')
+print('Using a rolling window to look at thingos')
+
+
+def rolling_save(input_rows):
+    # Rolling save function
+    # numpy.savetxt('test.txt', 1)
+    return input_rows[1]
+
+full_df.set_index('Date',inplace=True)
+res = full_df.rolling(3).apply(rolling_save)
+print(res)
 
 print('Printing dataframe.')
-print(full_df.iloc[1000:1500])
+# print(full_df.iloc[1000:1500])
 # print(full_df.describe())
