@@ -33,8 +33,8 @@ full_df['Discharge'] = full_df['Discharge'].round(3)
 
 print('Writing all gaussian estimation training data to file.')
 # creating empty data structures to hold window.
-num_stored_rain = 100
-num_stored_lvl = 100
+num_stored_rain = steps_der_day*7
+num_stored_lvl = steps_der_day*7
 stored_rain = collections.deque(num_stored_rain * [math.nan], num_stored_rain)
 stored_lvl = collections.deque(num_stored_lvl * [math.nan], num_stored_lvl)
 
@@ -46,13 +46,14 @@ with open(outfile_name, 'w') as f:
         temp_row_data = [row.Discharge] + list(stored_rain) + list(stored_lvl)
         has_nan=False
         for i in temp_row_data:
-            try:
-                if math.isnan(i):
-                    has_nan=True
-                    break
-            except:
+            # try:
+            if type(i) != float or math.isnan(i):
                 has_nan=True
-                print(str(index)+' had an error.')
+                break
+            # except:
+            #     has_nan=True
+            #     print(str(index)+' had an error.')
+            #     print(row)
         if not has_nan:
             writer.writerow(temp_row_data)
         stored_rain.appendleft(row.Rainfall)
