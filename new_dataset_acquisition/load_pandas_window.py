@@ -1,5 +1,5 @@
 import pandas
-pandas.set_option('display.width',200)
+pandas.set_option('display.width', 200)
 from pathlib import Path
 
 pickle_path = str(Path(__file__).parent.parent) + \
@@ -24,8 +24,12 @@ df.drop(col_names, inplace=True, axis=1)
 print('Columns created.')
 
 print('Loading and creating rainfall data column.')
+rain_df = pandas.read_csv('../old_dataset/nymboida_rain.csv', parse_dates=True)
+
+print(rain_df)
+print(rain_df.describe())
 
 df.set_index('Date', inplace=True)
-print(df.head(10))
+# print(df.head(10))
 
 # print(df.describe())
