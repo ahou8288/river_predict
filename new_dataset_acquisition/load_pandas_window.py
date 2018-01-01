@@ -43,31 +43,31 @@ num_stored_rain = 5
 num_stored_lvl = 5
 stored_rain = collections.deque(num_stored_rain * [math.nan], num_stored_rain)
 stored_lvl = collections.deque(num_stored_lvl * [math.nan], num_stored_lvl)
+outfile_name = '../new_dataset/nymboida_gaussian.txt'
 
-output = {
-    'num_stored_rain': num_stored_rain,
-    'num_stored_lvl': num_stored_lvl,
-    'y_vals': [],
-    'x_rainfalls': [],
-    'x_levels': [],
-}
+with open(outfile_name, 'w') as f:
+    # Write a header explaining the file format
+    f.write('num_stored_rain,{}\n'.format(num_stored_rain))
+    f.write('num_stored_lvl,{}\n'.format(num_stored_lvl))
+    rain_col_list = ','.join(['rain' + str(i)
+                               for i in range(num_stored_rain)])
+    lvl_col_list = ','.join(['level' + str(i)
+                                for i in range(num_stored_lvl)])
+    f.write('y_val,{},{}\n'.format(rain_col_list, lvl_col_list))
 
-for index, row in full_df.iterrows():
-    if index % 5000 ==0:
-        print('Index {}'.format(index))
-    output['y_vals'].append(row.Discharge)
-    output['x_rainfalls'].append(list(stored_rain))
-    output['x_levels'].append(list(stored_lvl))
-    stored_rain.appendleft(row.Rainfall)
-    stored_lvl.appendleft(row.Discharge)
-    # if index > 4:
-    #     break
+    rain_template = ','.join(['{}']*num_stored_rain)
+    lvl_template = ','.join(['{}']*num_stored_lvl)
 
-# import pprint
-# pprint.pprint(output)
-
-print('Saving file')
-outfile_name = '../new_dataset/nymboida_gaussian.mat'
-import scipy.io as sio
-sio.savemat(outfile_name, output)
-print('Finished.')
+    for index, row in full_df.iterrows():
+        rain_string = rain_template.format(*list(stored_rain))
+        lvl_string = lvl_template.format(*list(stored_lvl))
+        f.write(
+            '{y_val},{rain_string},{lvl_string}\n'.format(
+                y_val=row.Discharge, rain_string=rain_string, lvl_string=lvl_string)
+        )
+        if index % 5000 == 0:
+            print('Index {}'.format(index))
+        stored_rain.appendleft(row.Rainfall)
+        stored_lvl.appendleft(row.Discharge)
+        if index > 4:
+            break
