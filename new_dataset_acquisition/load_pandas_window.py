@@ -1,6 +1,8 @@
 import pandas
 pandas.set_option('display.width', 200)
+# pandas.set_option('display.max_rows', 500)
 from pathlib import Path
+steps_der_day = 96
 
 
 pickle_path = str(Path(__file__).parent.parent) + \
@@ -21,8 +23,12 @@ full_df = pandas.merge(df, rain_df, how='left')
 
 
 print('Interpolating missing rainfall data')
-full_df['Rainfall'].interpolate(limit=95, inplace=True)
-# only interpolate up to one day in advance
+# assume rain fell at a constant rate over the whole time period
+# only fill in gaps of up to one day
+full_df['Rainfall'].fillna(
+    method='bfill', inplace=True, limit=steps_der_day - 1)
+# Adjust for 15 minute time period
+full_df['Rainfall'] /= steps_der_day
 
 
 print('Creating new column.')
@@ -43,5 +49,5 @@ print('Columns created.')
 
 
 print('Printing dataframe.')
-print(full_df.iloc[1340:1400])
+print(full_df.iloc[1000:1500])
 # print(full_df.describe())
