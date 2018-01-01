@@ -1,3 +1,4 @@
+# import matplotlib.pyplot as plt
 import pandas
 pandas.set_option('display.width', 200)
 from pathlib import Path
@@ -28,10 +29,17 @@ print('Loading and creating rainfall data column.')
 dateparse = lambda x: pandas.datetime.strptime(x, '%Y-%m-%d %H:%M:%S')
 rain_df = pandas.read_csv(
     '../old_dataset/nymboida_rain.csv', parse_dates=[0], date_parser = dateparse)
+print('Rainfall data loaded from csv.')
 
+print('Merging rainfall and level data into one dataframe.')
 full_df = pandas.merge(df,rain_df,how='left')
 
-# print(df.head(10))
+print('Interpolating missing rainfall data')
+full_df['Inter']=full_df['Rainfall'].interpolate(limit=95) #only interpolate up to one day in advance
 
-print(full_df.iloc[80:100])
-print(full_df.describe())
+print('Printing dataframe.')
+print(full_df.iloc[85:200])
+# print(full_df.describe())
+
+# plt.figure(); 
+# full_df.plot(y='Inter')
