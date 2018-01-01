@@ -25,7 +25,9 @@ df.drop(col_names, inplace=True, axis=1)
 print('Columns created.')
 
 print('Loading and creating rainfall data column.')
-rain_df = pandas.read_csv('../old_dataset/nymboida_rain.csv', parse_dates=True)
+dateparse = lambda x: pandas.datetime.strptime(x, '%Y-%m-%d %H:%M:%S')
+rain_df = pandas.read_csv(
+    '../old_dataset/nymboida_rain.csv', parse_dates=[0], index_col=0, date_parser = dateparse)
 
 print(rain_df)
 print(rain_df.describe())
