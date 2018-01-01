@@ -27,12 +27,11 @@ print('Columns created.')
 print('Loading and creating rainfall data column.')
 dateparse = lambda x: pandas.datetime.strptime(x, '%Y-%m-%d %H:%M:%S')
 rain_df = pandas.read_csv(
-    '../old_dataset/nymboida_rain.csv', parse_dates=[0], index_col=0, date_parser = dateparse)
+    '../old_dataset/nymboida_rain.csv', parse_dates=[0], date_parser = dateparse)
 
-print(rain_df)
-print(rain_df.describe())
+full_df = pandas.merge(df,rain_df,how='left')
 
-df.set_index('Date', inplace=True)
 # print(df.head(10))
 
-# print(df.describe())
+print(full_df.iloc[80:100])
+print(full_df.describe())
