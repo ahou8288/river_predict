@@ -14,7 +14,8 @@ col_names = []
 # Create columns 1 by one
 for i in range(1, previous_levels + 1):
     col_name = 'previous' + str(i)
-    col_names.append(col_name) # Store column names to use then remove them later.
+    # Store column names to use then remove them later.
+    col_names.append(col_name)
     df = df.assign(**{col_name: df.Discharge.shift(i)})
 # Aggregate columns into a list
 df['past_levels'] = df[col_names].values.tolist()
