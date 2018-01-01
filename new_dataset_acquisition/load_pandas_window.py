@@ -42,7 +42,18 @@ outfile_name = '../new_dataset/nymboida_gaussian.csv'
 with open(outfile_name, 'w') as f:
     # Write a header explaining the file format
     writer = csv.writer(f, delimiter=',')
-    for index, row in tqdm(full_df.iterrows()):
-        writer.writerow([row.Discharge] + list(stored_rain) + list(stored_lvl))
+    for index, row in tqdm(full_df.iterrows(),total = len(full_df), ncols = 140, unit='rows'):
+        temp_row_data = [row.Discharge] + list(stored_rain) + list(stored_lvl)
+        has_nan=False
+        for i in temp_row_data:
+            try:
+                if math.isnan(i):
+                    has_nan=True
+                    break
+            except:
+                has_nan=True
+                print(str(index)+' had an error.')
+        if not has_nan:
+            writer.writerow(temp_row_data)
         stored_rain.appendleft(row.Rainfall)
         stored_lvl.appendleft(row.Discharge)
