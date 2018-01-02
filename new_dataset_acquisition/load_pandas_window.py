@@ -1,7 +1,7 @@
 import pandas
+import numpy as np
 pandas.set_option('display.width', 200)
 pandas.set_option('display.max_rows', 500)
-from pathlib import Path
 steps_der_day = 96
 
 
@@ -27,8 +27,7 @@ def create_history_column(col_name, num_timesteps, input_df, verbose=False):
     input_df.drop(temp_names_list, inplace=True, axis=1)
     return input_df
 
-pickle_path = str(Path(__file__).parent.parent) + \
-    '/new_dataset/Pickles/combined_csvs.pickle'
+pickle_path = '../new_dataset/Pickles/combined_csvs.pickle'
 df = pandas.read_pickle(pickle_path, compression='bz2')
 print('Finished loading')
 
@@ -52,15 +51,18 @@ full_df['Rainfall'].fillna(
 # Adjust for 15 minute time period
 full_df['Rainfall'] /= steps_der_day
 
-
 print('Creating new columns with history.')
 # Column will have a list with the previous river levels
 previous_levels = 500
 previous_rainfalls = 500
-full_df = create_history_column('Rainfall', previous_rainfalls, full_df, True)
-full_df = create_history_column('Discharge', previous_levels, full_df, True)
-print('Columns created.')
 
-print('Printing dataframe.')
-print(full_df.iloc[1000:1500])
-# print(full_df.describe())
+num_chunks = 20
+
+for small_df in np.array_split(full_df, num_chunks):
+    small_df = create_history_column(
+        'Rainfall', previous_rainfalls, small_df, True)
+    small_df = create_history_column(
+        'Discharge', previous_levels, small_df, True)
+    print(small_df)
+
+    break
