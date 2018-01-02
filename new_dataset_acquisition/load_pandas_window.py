@@ -1,5 +1,6 @@
 import pandas
 import numpy as np
+import os
 pandas.set_option('display.width', 200)
 pandas.set_option('display.max_rows', 500)
 steps_der_day = 96
@@ -58,11 +59,24 @@ previous_rainfalls = 500
 
 num_chunks = 20
 
+csv_filename='../new_dataset/nymboida_gaussian.csv'
+
+#to make life easier
+try:
+    os.remove(csv_filename)
+except OSError:
+    pass
+
+header=True
 for small_df in np.array_split(full_df, num_chunks):
+
     small_df = create_history_column(
         'Rainfall', previous_rainfalls, small_df, True)
     small_df = create_history_column(
-        'Discharge', previous_levels, small_df, True)
+        'Level', previous_levels, small_df, True)
     print(small_df)
 
+    small_df.to_csv(csv_filename,header=header,mode='a')
+    if header: #only print header on first row
+        header=False
     break
