@@ -39,7 +39,7 @@ full_df = full_df.round(3)
 # Specify parameters for history window size.
 # previous_levels says how many previous level measurements should be
 # stored in the output
-previous_levels = 700
+previous_levels = 96
 previous_rainfalls = previous_levels
 # Chunks are used to allow the calculations to fit into memory.
 num_chunks = 100
