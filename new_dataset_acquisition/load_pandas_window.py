@@ -52,8 +52,8 @@ try:
 except OSError:
     pass
 
-chunk_counter = 0
-for small_df in tqdm(np.array_split(full_df, num_chunks), unit='chunks'):
+
+def write_chunk_to_csv(small_df):
 
     small_df = create_history_column(
         'Rainfall', previous_rainfalls, small_df)
@@ -65,6 +65,7 @@ for small_df in tqdm(np.array_split(full_df, num_chunks), unit='chunks'):
 
     small_df.dropna(inplace=True)
 
-    small_df.to_csv(csv_filename,
-                    header=chunk_counter == 0, mode='a', index=False)
-    chunk_counter += 1
+    small_df.to_csv(csv_filename, header=False, mode='a', index=False)
+
+for small_df in tqdm(np.array_split(full_df, num_chunks), unit='chunks'):
+    write_chunk_to_csv(small_df)
