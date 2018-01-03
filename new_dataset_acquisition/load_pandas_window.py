@@ -1,6 +1,7 @@
 import pandas
 import numpy as np
 import os
+from multiprocessing import Pool
 from tqdm import tqdm
 steps_der_day = 96
 
@@ -39,7 +40,7 @@ full_df = full_df.round(3)
 
 print('Creating new columns with history.')
 # Column will have a list with the previous river levels
-previous_levels = 100
+previous_levels = 700
 previous_rainfalls = previous_levels
 
 num_chunks = 40
@@ -67,5 +68,7 @@ def write_chunk_to_csv(small_df):
 
     small_df.to_csv(csv_filename, header=False, mode='a', index=False)
 
-for small_df in tqdm(np.array_split(full_df, num_chunks), unit='chunks'):
-    write_chunk_to_csv(small_df)
+chunks = np.array_split(full_df, num_chunks)
+with Pool(4) as p:
+    for _ in tqdm(p.imap_unordered(write_chunk_to_csv, chunks), total=num_chunks, unit='chunk'):
+        pass
