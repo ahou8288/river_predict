@@ -53,7 +53,7 @@ with open(csv_filename, 'w') as f:
     col_list = ['Rainfall', 'Level', ] + \
         ['rainfall' + str(i) for i in range(1, previous_rainfalls + 1)] + \
         ['level' + str(i) for i in range(1, previous_levels + 1)]
-    f.write(','.join(col_list))
+    f.write(','.join(col_list)+'\n')
 
 
 def create_history_column(col_name, num_timesteps, input_df):
