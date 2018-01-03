@@ -1,17 +1,16 @@
 import pandas
 import numpy as np
 import os
-pandas.set_option('display.width', 200)
-pandas.set_option('display.max_rows', 500)
+from tqdm import tqdm
 steps_der_day = 96
 
 
 def create_history_column(col_name, num_timesteps, input_df):
-    print('Creating column history for {} with {} time steps.'.format(
-        col_name, num_timesteps))
+    # print('Creating column history for {} with {} time steps.'.format(
+    #     col_name, num_timesteps))
     # Create columns 1 by one
     for i in range(1, previous_levels + 1):
-        temp_col_name = col_name[:5].lower() + '_' + str(i)
+        temp_col_name = col_name.lower() + '_' + str(i)
         # Store column names to use then remove them later.
         input_df = input_df.assign(
             **{temp_col_name: input_df[col_name].shift(i)})
@@ -58,7 +57,7 @@ except OSError:
     pass
 
 chunk_counter = 0
-for small_df in np.array_split(full_df, num_chunks):
+for small_df in tqdm(np.array_split(full_df, num_chunks), unit='chunks'):
 
     small_df = create_history_column(
         'Rainfall', previous_rainfalls, small_df)
@@ -69,9 +68,7 @@ for small_df in np.array_split(full_df, num_chunks):
     del small_df['Discharge']
 
     small_df.dropna(inplace=True)
-    
-    print('Writing to file')
+
     small_df.to_csv(csv_filename,
                     header=chunk_counter == 0, mode='a', index=False)
     chunk_counter += 1
-    break
