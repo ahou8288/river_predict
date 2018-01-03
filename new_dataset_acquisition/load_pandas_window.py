@@ -13,6 +13,14 @@ def create_history_column(col_name, num_timesteps, input_df):
                                col_name].shift(i) for i in range(1, previous_levels + 1)})
     return input_df
 
+
+def write_chunk_to_csv(small_df):
+    small_df = create_history_column(
+        'Rainfall', previous_rainfalls, small_df)
+    small_df = create_history_column(
+        'Level', previous_levels, small_df)
+    small_df.to_csv(csv_filename, header=False, mode='a', index=False)
+
 pickle_path = '../new_dataset/Pickles/combined_csvs.pickle'
 df = pandas.read_pickle(pickle_path, compression='bz2')
 print('Finished loading')
@@ -53,20 +61,10 @@ try:
 except OSError:
     pass
 
+full_df.dropna(inplace=True)
 
-def write_chunk_to_csv(small_df):
-
-    small_df = create_history_column(
-        'Rainfall', previous_rainfalls, small_df)
-    small_df = create_history_column(
-        'Level', previous_levels, small_df)
-
-    del small_df['Date']
-    del small_df['Discharge']
-
-    small_df.dropna(inplace=True)
-
-    small_df.to_csv(csv_filename, header=False, mode='a', index=False)
+del full_df['Date']
+del full_df['Discharge']
 
 chunks = np.array_split(full_df, num_chunks)
 with Pool(4) as p:
