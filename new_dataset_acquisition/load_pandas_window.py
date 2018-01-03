@@ -8,12 +8,8 @@ steps_der_day = 96
 def create_history_column(col_name, num_timesteps, input_df):
     # print('Creating column history for {} with {} time steps.'.format(
     #     col_name, num_timesteps))
-    # Create columns 1 by one
-    for i in range(1, previous_levels + 1):
-        temp_col_name = col_name.lower() + '_' + str(i)
-        # Store column names to use then remove them later.
-        input_df = input_df.assign(
-            **{temp_col_name: input_df[col_name].shift(i)})
+    input_df = input_df.assign(**{col_name.lower() + '_' + str(i): input_df[
+                               col_name].shift(i) for i in range(1, previous_levels + 1)})
     return input_df
 
 pickle_path = '../new_dataset/Pickles/combined_csvs.pickle'
@@ -43,7 +39,7 @@ full_df = full_df.round(3)
 
 print('Creating new columns with history.')
 # Column will have a list with the previous river levels
-previous_levels = 7*steps_der_day
+previous_levels = 100
 previous_rainfalls = previous_levels
 
 num_chunks = 40
