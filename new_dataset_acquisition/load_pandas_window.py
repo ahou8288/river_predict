@@ -6,26 +6,15 @@ pandas.set_option('display.max_rows', 500)
 steps_der_day = 96
 
 
-def create_history_column(col_name, num_timesteps, input_df, verbose=False):
-    if verbose:
-        print('Creating column history for {} with {} time steps.'.format(
-            col_name, num_timesteps))
-    new_col_name = 'Past_' + col_name.lower()
-    temp_names_list = []
+def create_history_column(col_name, num_timesteps, input_df):
+    print('Creating column history for {} with {} time steps.'.format(
+        col_name, num_timesteps))
     # Create columns 1 by one
     for i in range(1, previous_levels + 1):
-        if verbose and i % 20 == 0:
-            print('Created {} columns.'.format(i))
-        temp_col_name = 'prev' + str(i)
+        temp_col_name = col_name[:5].lower() + '_' + str(i)
         # Store column names to use then remove them later.
-        temp_names_list.append(temp_col_name)
         input_df = input_df.assign(
             **{temp_col_name: input_df[col_name].shift(i)})
-        input_df[temp_col_name] = input_df[temp_col_name].round(3)
-    # Aggregate columns into a list
-    input_df[new_col_name] = input_df[temp_names_list].values.tolist()
-    # Drop temporary columns
-    input_df.drop(temp_names_list, inplace=True, axis=1)
     return input_df
 
 pickle_path = '../new_dataset/Pickles/combined_csvs.pickle'
@@ -51,32 +40,38 @@ full_df['Rainfall'].fillna(
     method='bfill', inplace=True, limit=steps_der_day - 1)
 # Adjust for 15 minute time period
 full_df['Rainfall'] /= steps_der_day
+full_df = full_df.round(3)
 
 print('Creating new columns with history.')
 # Column will have a list with the previous river levels
-previous_levels = 500
-previous_rainfalls = 500
+previous_levels = 5
+previous_rainfalls = 5
 
-num_chunks = 20
+num_chunks = 40
 
-csv_filename='../new_dataset/nymboida_gaussian.csv'
+csv_filename = '../new_dataset/nymboida_gaussian.csv'
 
-#to make life easier
+# to make life easier
 try:
     os.remove(csv_filename)
 except OSError:
     pass
 
-header=True
+chunk_counter = 0
 for small_df in np.array_split(full_df, num_chunks):
 
     small_df = create_history_column(
-        'Rainfall', previous_rainfalls, small_df, True)
+        'Rainfall', previous_rainfalls, small_df)
     small_df = create_history_column(
-        'Level', previous_levels, small_df, True)
-    print(small_df)
+        'Level', previous_levels, small_df)
 
-    small_df.to_csv(csv_filename,header=header,mode='a')
-    if header: #only print header on first row
-        header=False
+    del small_df['Date']
+    del small_df['Discharge']
+
+    small_df.dropna(inplace=True)
+    
+    print('Writing to file')
+    small_df.to_csv(csv_filename,
+                    header=chunk_counter == 0, mode='a', index=False)
+    chunk_counter += 1
     break
