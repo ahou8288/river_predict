@@ -43,12 +43,12 @@ full_df = full_df.round(3)
 
 print('Creating new columns with history.')
 # Column will have a list with the previous river levels
-previous_levels = 5
-previous_rainfalls = 5
+previous_levels = 7*steps_der_day
+previous_rainfalls = previous_levels
 
 num_chunks = 40
 
-csv_filename = '../new_dataset/nymboida_gaussian.csv'
+csv_filename = '../new_dataset/nymboida_gaussian_week.csv'
 
 # to make life easier
 try:
