@@ -1,0 +1,54 @@
+.bordered {
+    border: solid 3px;
+}
+
+input {
+    margin-bottom: 10px;
+    padding-left: 5px;
+    border: solid !important;
+    border-color: #000;
+}
+
+#join_game {
+    margin: 10px;
+    padding: 20px;
+}
+
+.valign > [class*="col"] {
+    display: inline-block;
+    float: none;
+    vertical-align: middle;
+}
+
+h1 {
+    color: black;
+    text-align: center;
+}
+
+.button {
+    background-color: #ff9900;
+    color: white;
+    padding: 10px 50px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 50%;
+    font-size: 16px;
+    height: auto;
+    width: auto;
+}
+
+.button:hover {
+    background-color: orangered;
+}
+
+.mainBox {
+    background: rgba(54, 25, 25, .4);
+}
+
+#bg {
+    background-size: 1920px 1080px;
+    background-repeat: repeat;
+    background-position: top;
+    background-attachment: fixed;
+}

@@ -1,0 +1,168 @@
+/* Responsive Layout*/
+@supports (display: grid) {
+	.chat {
+		grid-area: chat;
+	}
+	.coin {
+		grid-area: coin;
+	}
+	.home {
+		grid-area: home;
+	}
+	.items1 {
+		grid-area: items1;
+	}
+	.items2 {
+		grid-area: items2;
+	}
+	.link {
+		grid-area: link;
+	}
+	.name1 {
+		grid-area: name1;
+	}
+	.name2 {
+		grid-area: name2;
+	}
+	.partner {
+		grid-area: partner;
+	}
+	.user {
+		grid-area: user;
+	}
+
+	.site {
+		display: grid;
+		grid-gap: 20px;
+	}
+
+	.userinformation {
+		display: grid;
+		grid-template-columns: 1fr 2fr;
+		grid-column-gap: 20px;
+		grid-template-rows: 70px 70px 70px 70px;
+	}
+
+	.itemgrid {
+		display: grid;
+		grid-template-columns: 30px 1fr 1fr 30px 30px;
+		grid-auto-rows: minmax(30px, auto);
+		grid-row-gap: 2px;
+	}
+
+	@media screen{
+		.site {
+			grid-template-columns: 1fr;
+			grid-template-areas:
+				"home"
+				"link"
+				"name1"
+				"user"
+				"coin"
+				"items1"
+				"name2"
+				"partner"
+				"items2"
+				"chat";
+			padding: 0px;
+		}
+	}
+
+	@media screen and (min-width: 600px) {
+		.site {
+			grid-template-columns: 1fr 1fr;
+			grid-template-rows: 70px;
+			grid-template-areas:
+				"link home"
+				"items1 name1"
+				"items1 user"
+				"items1 coin"
+				"items2 name2"
+				"items2 partner"
+				"items2 chat";
+			padding: 10px;
+		}
+	}
+
+	@media screen and (min-width: 1000px) {
+		.site {
+			grid-template-columns: 1fr 1fr 1fr 1fr;
+			grid-template-rows: 70px;
+			grid-template-areas:
+				"link name1 name2 home"
+				"items1 user partner items2"
+				"items1 coin chat items2";
+			padding: 20px;
+		}
+
+		/* Filling the screen */
+		.fullscreen {
+			position: fixed;
+			/*margin: auto;*/
+			margin-left: auto;
+			margin-right: auto;
+			top: 0;
+			left: 0;
+			bottom: 0;
+			right: 0;
+			overflow: auto;
+			max-width:1600px;
+			max-height:1080px;
+		}
+	}
+}
+
+/* Site styling */
+
+body {
+	background: #FFFBD0;
+	line-height:1.6;
+	font-size:18px;
+	color:#222;
+}
+
+h2 {
+	text-align: center;
+}
+
+/* Item styling */
+.itembutton {
+	background-color: orange;
+	cursor:pointer;
+}
+
+.itembutton::-moz-focus-inner {
+  border: 0;
+}
+
+/* Coin styling */
+.unselectable {
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+}
+
+.bitcoin_img {
+	max-width:70%;
+	max-height:70%;
+	margin: auto;
+	display: block;
+	border-radius: 50%;
+}
+.bitcoin_img:hover {
+	background-color: #C13100;
+	box-shadow: 0px 0px 60px #C13100;
+	-moz-box-shadow: 0 0 60px #C13100;
+	-webkit-box-shadow: 0 0 60px #C13100;
+}
+
+/* Game styling */
+.game_section {
+    border: solid 3px;
+    border-radius: 5px;
+	background-color: #FF9900;
+}
+
+.infoicon {
+	text-align: right;
+}
