@@ -25,69 +25,69 @@ class UserProfile(models.Model):
         instance.userprofile.save()
 
 
-class Item(models.Model):
-    name = models.CharField(max_length=33)
-    displayImagePath = models.URLField()
-    baseValue = models.IntegerField()
-    upgradeValue = models.IntegerField()
+# class Item(models.Model):
+#     name = models.CharField(max_length=33)
+#     displayImagePath = models.URLField()
+#     baseValue = models.IntegerField()
+#     upgradeValue = models.IntegerField()
 
-    def __todict__(self):
-        return {
-            "name": self.name,
-            "baseValue": self.baseValue,
-            "upgradeValue": self.upgradeValue
-        }
-
-
-class Game(models.Model):
-    player = models.ForeignKey(User, related_name='player')
-    partner = models.ForeignKey(User, null=True, related_name='partner')
-    creationDate = models.DateField()
-    linkingCode = models.CharField(max_length=33)
-    isPublic = models.BooleanField()
+#     def __todict__(self):
+#         return {
+#             "name": self.name,
+#             "baseValue": self.baseValue,
+#             "upgradeValue": self.upgradeValue
+#         }
 
 
-class PlayerItem(models.Model):
-    user = models.ForeignKey(User)
-    game = models.ForeignKey(Game)
-    item = models.ForeignKey(Item)
-    quantity = models.IntegerField()
-    upgradeQuantity = models.IntegerField()
-
-    def __todict__(self):
-        return {
-            "user": {
-                "id": self.user.id
-            },
-            "game": {
-                "id": self.game.id
-            },
-            "item": {
-                "id": self.item.id,
-                "name": self.item.name
-            },
-            "quantity": self.quantity,
-            "upgradeQuantity": self.upgradeQuantity
-        }
+# class Game(models.Model):
+#     player = models.ForeignKey(User, related_name='player')
+#     partner = models.ForeignKey(User, null=True, related_name='partner')
+#     creationDate = models.DateField()
+#     linkingCode = models.CharField(max_length=33)
+#     isPublic = models.BooleanField()
 
 
-class UserGame(models.Model):
-    user = models.ForeignKey(User)
-    game = models.ForeignKey(Game)
-    wealth = models.BigIntegerField()
-    mined = models.BigIntegerField(default=0)
-    timePlayed = models.DurationField(
-        default=timedelta(seconds=0))
+# class PlayerItem(models.Model):
+#     user = models.ForeignKey(User)
+#     game = models.ForeignKey(Game)
+#     item = models.ForeignKey(Item)
+#     quantity = models.IntegerField()
+#     upgradeQuantity = models.IntegerField()
 
-    def __todict__(self):
-        return {
-            "user": {
-                "id": self.user.id
-            },
-            "game": {
-                "id": self.game.id
-            },
-            "wealth": self.wealth,
-            "mined": self.mined,
-            "timePlayed": self.timePlayed.seconds
-        }
+#     def __todict__(self):
+#         return {
+#             "user": {
+#                 "id": self.user.id
+#             },
+#             "game": {
+#                 "id": self.game.id
+#             },
+#             "item": {
+#                 "id": self.item.id,
+#                 "name": self.item.name
+#             },
+#             "quantity": self.quantity,
+#             "upgradeQuantity": self.upgradeQuantity
+#         }
+
+
+# class UserGame(models.Model):
+#     user = models.ForeignKey(User)
+#     game = models.ForeignKey(Game)
+#     wealth = models.BigIntegerField()
+#     mined = models.BigIntegerField(default=0)
+#     timePlayed = models.DurationField(
+#         default=timedelta(seconds=0))
+
+#     def __todict__(self):
+#         return {
+#             "user": {
+#                 "id": self.user.id
+#             },
+#             "game": {
+#                 "id": self.game.id
+#             },
+#             "wealth": self.wealth,
+#             "mined": self.mined,
+#             "timePlayed": self.timePlayed.seconds
+#         }
