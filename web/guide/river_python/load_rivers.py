@@ -10,16 +10,10 @@ with open('levels_urls.txt', 'r') as f:
 
 def get_html(url):
     print('Getting data from {}'.format(url))
-    try:
-        r = requests.get(url)
-    except:
-        print('Request failed. Bad url?')
-        return 'Error'
-    print('Data received.')
+    r = requests.get(url)
     if r.status_code != 200:
-        print(r.text)
-        print(r.status_code)
-        return 'Error'
+        raise ValueError(
+            'Web request returned invalid status code.', r.text, r.status_code)
     return r.text
 
 
@@ -38,23 +32,29 @@ def load_levels_table(url):
     output = {}
 
     # Get data
-    html_content = get_html(url)
-    if html_content == 'Error':
+    try:
+        html_content = get_html(url)
+    except Exception as err:
+        print('Web request error: {}'.format(err.args))
+        return {}
+    # Convert data to python list
+    try:
+        soup = BeautifulSoup(html_content, 'html.parser')
+        table = soup.find('table')
+        rows = table.find_all('tr')[3:]
+        parsed_rows = [[td.contents[0]
+                        for td in row.find_all('td')] for row in rows]
+    except:
+        print('HTML content from {} could not be handled.'.format(url))
         return {}
 
-    # Convert data to python list
-    soup = BeautifulSoup(html_content, 'html.parser')
-    table = soup.find_all('table')[0]
-    rows = table.find_all('tr')[3:]
-    parsed_rows = [[td.contents[0]
-                    for td in row.find_all('td')] for row in rows]
-
-    # Handle bad values and stuff
+    # Deal with input formatting.
     for river in parsed_rows:  # For every river downloaded
         river_id, river_name = split_name(river[0])
         if river_id != '0':  # Only keep real rivers
             observation_list = []
-            # For every reading in the row convert the text to a numeric type
+            # For every reading in the row convert the text to a numeric
+            # type
             for index, reading_text in enumerate(river[1:]):
                 try:
                     # strip out comma character
@@ -64,7 +64,8 @@ def load_levels_table(url):
                     val = float('nan')
                 observation_list.append(val)
             # add the list of values to the dictionary
-            levels, discharge = observation_list[::2], observation_list[1::2]
+            levels, discharge = observation_list[
+                ::2], observation_list[1::2]
             output[river_id] = {
                 'levels': levels,
                 'discharge': discharge,
@@ -74,9 +75,12 @@ def load_levels_table(url):
             print(river)  # for debugging
     return output
 
-# Loop through all urls and load the rivers
-all_rivers = {}
-for url in urls:
-    all_rivers.update(load_levels_table(url))
 
-pprint(all_rivers)
+print(load_levels_table('http://google.com'))
+
+# Loop through all urls and load the rivers
+# all_rivers = {}
+# for url in urls:
+#     all_rivers.update(load_levels_table(url))
+
+# pprint(all_rivers)
