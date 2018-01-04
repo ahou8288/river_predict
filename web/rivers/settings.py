@@ -54,7 +54,7 @@ ROOT_URLCONF = 'rivers.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['guide/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
