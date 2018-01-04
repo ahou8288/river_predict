@@ -1,3 +1,0 @@
-django-user-accounts==2.0.3
-pinax-eventlog==1.1.2
-pinax-webanalytics==3.0.0
