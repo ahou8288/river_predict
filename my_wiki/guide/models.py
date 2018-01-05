@@ -3,21 +3,6 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    bio = models.TextField(max_length=500, blank=True)
-    location = models.CharField(max_length=30, blank=True)
-
-    @receiver(post_save, sender=User)
-    def create_user_profile(sender, instance, created, **kwargs):
-        if created:
-            Profile.objects.create(user=instance)
-
-    @receiver(post_save, sender=User)
-    def save_user_profile(sender, instance, **kwargs):
-        instance.profile.save()
-
-
 class River(models.Model):
     name = models.CharField(max_length=100)
     level_url = models.URLField()
@@ -43,11 +28,6 @@ class Section(models.Model):
     wikilink = models.URLField()
 
 
-class Sectionpoints(models.Model):
-    section = models.ForeignKey(Section)
-    point = models.ForeignKey(Points)
-
-
 class Points(models.Model):
     POINT_TYPES = (
         (0, 'take_out'),
@@ -59,6 +39,11 @@ class Points(models.Model):
     point_type = models.CharField(max_length=1, choices=POINT_TYPES)
     latitude = models.DecimalField(max_digits=9, decimal_places=6)
     longditude = models.DecimalField(max_digits=9, decimal_places=6)
+
+
+class Sectionpoints(models.Model):
+    section = models.ForeignKey(Section)
+    point = models.ForeignKey(Points)
 
 
 class Interested(models.Model):

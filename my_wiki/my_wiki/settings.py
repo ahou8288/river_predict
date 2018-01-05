@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'waliki',
     'waliki.git',           # optional but recommended
     'waliki.attachments',   # optional but recommended
+    'guide',
 ]
 
 MIDDLEWARE_CLASSES = [
