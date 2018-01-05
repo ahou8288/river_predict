@@ -58,7 +58,7 @@ ROOT_URLCONF = 'my_wiki.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['guide/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
