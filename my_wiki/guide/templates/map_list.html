@@ -1,0 +1,11 @@
+<h3>River Levels</h3>
+<ul>
+    {% for map in maps  %}
+        <li>
+            <a href="map_view/{{ map.url }}">
+                {{ map.name }}
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+
