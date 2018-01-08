@@ -23,6 +23,8 @@ maps = [{
 def map_list(request):
     return render(request, 'map_list.html', {'maps': maps})
 
+def map_home(request):
+    return render(request, 'map_home.html')
 
 def map_view(request, river_name):
     for i in maps:
