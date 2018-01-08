@@ -19,12 +19,17 @@ maps = [{
     'embed': 'https://www.google.com/maps/d/u/0/embed?mid=1wZIXpfFOVdZweF1In8VUwOP1LwFyg9Dp',
 }]
 
+with open('guide/maps_api_key.txt', 'r') as f:
+    key = f.read()
+
 
 def map_list(request):
     return render(request, 'map_list.html', {'maps': maps})
 
+
 def map_home(request):
-    return render(request, 'map_home.html')
+    return render(request, 'map_home.html', {'key': key})
+
 
 def map_view(request, river_name):
     for i in maps:

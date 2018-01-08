@@ -37,10 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'guide',
     'waliki',
     'waliki.git',           # optional but recommended
     'waliki.attachments',   # optional but recommended
-    'guide',
 ]
 
 MIDDLEWARE_CLASSES = [
