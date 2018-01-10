@@ -1,0 +1,27 @@
+.sitegrid {
+  display: grid;
+  grid-template-areas: "hd"
+                       "cb"
+                       "foot";
+  max-width: 650px;
+  margin:auto;
+  padding:0 10px
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.content_block{
+  .grid-area: cb;
+}
+
+.header {
+  .grid-area: hd;
+}
+
+.foot {
+  .grid-area: foot;
+  text-align: center
+}

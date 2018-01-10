@@ -1,14 +1,19 @@
 <html>
-<head>
-</head>
-<body>
-<header>
-    My Header
-</header>
-{% block content %}
-{% endblock %}
-<footer>
-    My Footer
-</footer>
-</body>
+    <head>
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'rivers/css/base.css' %}" />
+    </head>
+    <body class="sitegrid">
+        <header class="header">
+            <div class="home">Home</div>
+            <div class="rivers">Rivers</div>
+        </header>
+        <div class="content_block">
+            {% block content %}
+            {% endblock %}
+        </div>
+        <footer class="foot">
+            Website developed by Andrew Hougton
+        </footer>
+    </body>
 </html>
