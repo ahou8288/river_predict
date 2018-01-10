@@ -3,17 +3,17 @@
         {% load static %}
         <link rel="stylesheet" type="text/css" href="{% static 'rivers/css/base.css' %}" />
     </head>
-    <body class="sitegrid">
-        <header class="header">
-            <div class="home">Home</div>
-            <div class="rivers">Rivers</div>
+    <body>
+        <header>
+            <div id="hm">Home</div>
+            <div id="rv">Rivers</div>
         </header>
-        <div class="content_block">
+        <div id="cb">
             {% block content %}
             {% endblock %}
         </div>
-        <footer class="foot">
-            Website developed by Andrew Hougton
+        <footer>
+            Website developed by Andrew Houghton
         </footer>
     </body>
 </html>

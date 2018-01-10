@@ -1,27 +1,11 @@
-.sitegrid {
-  display: grid;
-  grid-template-areas: "hd"
-                       "cb"
-                       "foot";
-  max-width: 650px;
-  margin:auto;
-  padding:0 10px
-}
 
-body {
-  padding: 0;
-  margin: 0;
+body{
+  /*margin:40px auto;*/
+  /*max-width:650px;*/
+  line-height:1.6;
+  font-size:18px;
+  color:#444;
+  padding:0 10px;
 }
+h1,h2,h3{line-height:1.2}
 
-.content_block{
-  .grid-area: cb;
-}
-
-.header {
-  .grid-area: hd;
-}
-
-.foot {
-  .grid-area: foot;
-  text-align: center
-}
