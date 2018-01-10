@@ -3,16 +3,16 @@
         {% load static %}
         <link rel="stylesheet" type="text/css" href="{% static 'rivers/css/base.css' %}" />
     </head>
-    <body>
-        <header>
-            <div id="hm">Home</div>
-            <div id="rv">Rivers</div>
-        </header>
-        <div id="cb">
+    <body class="page">
+
+        <div class="header home">HOME</div>
+        <div class="header Levels">LEVELS</div>
+        <div class="header Rivers">RIVERS</div>
+        <div class="grid_contents">
             {% block content %}
             {% endblock %}
         </div>
-        <footer>
+        <footer class="footer">
             Website developed by Andrew Houghton
         </footer>
     </body>
