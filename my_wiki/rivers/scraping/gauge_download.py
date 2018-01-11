@@ -1,7 +1,5 @@
 import requests
-from pprint import pprint
 from bs4 import BeautifulSoup
-from multiprocessing import Pool
 
 print('Loading urls.')
 with open('gauge_urls.txt', 'r') as f:
@@ -15,10 +13,6 @@ def get_html(url):
         raise ValueError(
             'Web request returned invalid status code.', r.text, r.status_code)
     return r.text
-
-def fget_html(url):
-    with open('test.html', 'r') as f:
-        return f.read()
 
 
 def split_name(name):
@@ -84,16 +78,9 @@ def load_levels_table(url):
     return output
 
 
-river_data = load_levels_table(
-    'http://waterinfo.nsw.gov.au/drr/data/gwydir.river.html')
-
-for key, value in river_data.items():
-    print(key)
-    print(value)
-
-# Loop through all urls and load the rivers
-# all_rivers = {}
-# for url in urls:
-#     all_rivers.update(load_levels_table(url))
-
-# pprint(all_rivers)
+def get_all_rivers():
+    # Loop through all urls and load the rivers
+    all_rivers = {}
+    for url in urls:
+        all_rivers.update(load_levels_table(url))
+    return all_rivers

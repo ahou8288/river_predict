@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import River, Section
+from .models import River, Section, Level, Gauge
 
 # Create your views here.
 
@@ -21,4 +21,14 @@ def rivers(request):
 
 
 def levels(request):
+    print('Checking if river data has been downloaded.')
+
+    print('Getting data for all rivers.')
+    all_rivers={
+        '1234':{
+            'discharge':[1,2],
+            'levels':[11,21],
+            'name':'Doggo Paradise River'
+            }
+        }
     return render(request, 'levels.html', {'PAGE_TITLE': 'Levels'})

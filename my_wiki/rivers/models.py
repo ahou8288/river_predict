@@ -1,31 +1,42 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 
+
 class River(models.Model):
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=1000)
+
     def __str__(self):
         return self.name
 
 
-# class Levels(models.Model):
-#     READING_TYPES = (
-#         (0, 'level'),
-#         (1, 'discharge'),
-#     )
-#     river = models.ForeignKey(River)
-#     reading = models.FloatField()
-#     time = models.DateTimeField()
-#     unit = models.CharField(max_length=1, choices=READING_TYPES)
+class Gauge(models.Model):
+    name = models.CharField(max_length=100)
+    download_id = models.IntegerField()
+    def __str__(self):
+        return self.name
+
+
+class Level(models.Model):
+    READING_TYPES = (
+        (0, 'level'),
+        (1, 'discharge'),
+    )
+    gauge = models.ForeignKey(Gauge, on_delete=models.CASCADE)
+    value = models.FloatField()
+    time = models.DateTimeField()
+    unit = models.CharField(max_length=1, choices=READING_TYPES)
 
 
 class Section(models.Model):
     name = models.CharField(max_length=100)
     river = models.ForeignKey(River, on_delete=models.CASCADE)
+    gauge = models.ForeignKey(Gauge, on_delete=models.SET_NULL, null=True)
     minimum = models.FloatField()
+    slug = models.SlugField()
+
     def __str__(self):
         return self.name
-    slug = models.SlugField()
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
