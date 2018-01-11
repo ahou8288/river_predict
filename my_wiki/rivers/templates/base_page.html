@@ -4,10 +4,21 @@
         <link rel="stylesheet" type="text/css" href="{% static 'rivers/css/base.css' %}" />
     </head>
     <body class="page">
-
-        <div class="header home">HOME</div>
-        <div class="header Levels">LEVELS</div>
-        <div class="header Rivers">RIVERS</div>
+        <a href="home">
+            <div class="header home">
+                HOME
+            </div>
+        </a>
+        <a href="levels">
+            <div class="header Levels">
+                LEVELS
+            </div>
+        </a>
+        <a href="rivers">
+            <div class="header Rivers">
+                RIVERS
+            </div>
+        </a>
         <div class="grid_contents">
             {% block content %}
             {% endblock %}
