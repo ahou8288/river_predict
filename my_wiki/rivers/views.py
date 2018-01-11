@@ -1,5 +1,11 @@
 from django.shortcuts import render
 from .models import River, Section, Level, Gauge
+from django.utils import timezone
+import datetime
+import math
+import sys
+sys.path.insert(0, './rivers/lib')
+import gauge_download
 
 # Create your views here.
 
@@ -21,14 +27,30 @@ def rivers(request):
 
 
 def levels(request):
-    print('Checking if river data has been downloaded.')
+    download_data = gauge_download.download_or_get_rivers().items()
+    for download_id, data in download_data:
+        print(data)
+        if data['name']:
 
-    print('Getting data for all rivers.')
-    all_rivers={
-        '1234':{
-            'discharge':[1,2],
-            'levels':[11,21],
-            'name':'Doggo Paradise River'
-            }
-        }
+            if Gauge.objects.filter(name=data['name']).count():
+                print('Adding new gauge {}'.format(data['name']))
+                g = Gauge.objects.get(name=data['name'])
+            else:
+                print('Adding new gauge {}'.format(data['name']))
+                g = Gauge(name=data['name'], download_id=download_id)
+                g.save()
+
+            if not math.isnan(data['discharge']):
+                print('Discharge reading added for {}'.format(data['name']))
+                l1 = Level(unit='discharge', gauge=g, value=data['discharge'])
+                l1.save()
+            else:
+                print('nan found discharge')
+            if not math.isnan(data['levels']):
+                print('Level reading added for {}'.format(data['name']))
+                l2 = Level(unit='level', gauge=g, value=data['levels'])
+                l2.save()
+            else:
+                print('nan found level')
+
     return render(request, 'levels.html', {'PAGE_TITLE': 'Levels'})

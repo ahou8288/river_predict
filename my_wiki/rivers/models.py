@@ -12,7 +12,7 @@ class River(models.Model):
 
 class Gauge(models.Model):
     name = models.CharField(max_length=100)
-    download_id = models.IntegerField()
+    download_id = models.CharField(max_length=10)
     def __str__(self):
         return self.name
 
@@ -24,7 +24,7 @@ class Level(models.Model):
     )
     gauge = models.ForeignKey(Gauge, on_delete=models.CASCADE)
     value = models.FloatField()
-    time = models.DateTimeField()
+    time = models.DateTimeField(auto_now_add=True)
     unit = models.CharField(max_length=1, choices=READING_TYPES)
 
 

@@ -1,8 +1,13 @@
 import requests
 from bs4 import BeautifulSoup
+import pickle
+import datetime
+from django.utils import timezone
+import os
 
+cur_dir = 'rivers/lib/'
 print('Loading urls.')
-with open('gauge_urls.txt', 'r') as f:
+with open(cur_dir + 'gauge_urls.txt', 'r') as f:
     urls = f.read().split('\n')
 
 
@@ -69,8 +74,8 @@ def load_levels_table(url):
             levels, discharge = observation_list[
                 ::2], observation_list[1::2]
             output[river_id] = {
-                'levels': levels,
-                'discharge': discharge,
+                'levels': levels[0],
+                'discharge': discharge[0],
                 'name': river_name
             }
         else:
@@ -84,3 +89,17 @@ def get_all_rivers():
     for url in urls:
         all_rivers.update(load_levels_table(url))
     return all_rivers
+
+def download_or_get_rivers():
+    pickle_file = '{}web_{}.pickle'.format(cur_dir,timezone.now().date())
+
+    try:
+        data = pickle.load(open(pickle_file,'rb'))
+        print('pickle file found')
+    except:
+        data = get_all_rivers()
+        pickle.dump(data,open(pickle_file,'wb'))
+        print('loading pickle data from file')
+    return data
+
+download_or_get_rivers()
