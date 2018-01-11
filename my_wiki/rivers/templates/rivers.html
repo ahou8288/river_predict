@@ -1,4 +1,16 @@
 {% extends "base_page.html" %}
 {% block content %}
+
 <h1>Rivers</h1>
+{% for river in rivers  %}
+    <div>{{ river.name }}</div>
+    <ul>
+        {% for section in river.sections %}
+            <li>
+                {{ section.name }}
+            </li>
+        {% endfor %}
+    </ul>
+{% endfor %}
+
 {% endblock %}
