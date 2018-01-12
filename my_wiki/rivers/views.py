@@ -43,3 +43,9 @@ def levels(request):
         except:
             pass
     return render(request, 'levels.html', {'PAGE_TITLE': 'Levels', 'data': data})
+
+def sections(request,slug):
+    section = Section.objects.get(slug=slug)
+    river = section.river
+
+    return render(request, 'section.html', {'PAGE_TITLE': section.name, 'section':section,'river':river})

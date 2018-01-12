@@ -1,0 +1,28 @@
+{% extends "base_page.html" %}
+{% block content %}
+
+<h2>{{ river.name }}</h2>
+<h4>{{ section.name }}</h4>
+
+<a href="placeholder_url">Edit this page</a>
+
+<h5>
+    Grade: {{ section.grade }}
+</h5>
+
+<p>
+    {{ section.markdown }}
+</p>
+
+<div class="map">Map</div>
+
+{{ disclaimer }}
+
+<p>
+    Guide created by PLACEHOLDER on DATE    
+</p>
+<p>
+    Last edited by PLACEHOLDER on DATE
+</p>
+
+{% endblock %}

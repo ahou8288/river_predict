@@ -84,6 +84,7 @@ def load_levels_table(url):
 
 def get_all_rivers():
     # Loop through all urls and load the rivers
+    print('Getting info about all rivers')
     all_rivers = {}
     for url in urls:
         all_rivers.update(load_levels_table(url))
@@ -91,15 +92,12 @@ def get_all_rivers():
 
 def download_or_get_rivers():
     pickle_file = '{}web_{}.pickle'.format(cur_dir,timezone.now().date())
-
     try:
         data = pickle.load(open(pickle_file,'rb'))
-        print('pickle file found')
         data['loaded'] = True
     except:
         data = get_all_rivers()
         pickle.dump(data,open(pickle_file,'wb'))
-        print('loading pickle data from file')
         data['loaded'] = False
     return data
 

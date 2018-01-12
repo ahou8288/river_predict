@@ -6,9 +6,11 @@
     <div>{{ river.name }}</div>
     <ul>
         {% for section in river.sections %}
-            <li>
-                {{ section.name }}
-            </li>
+            <a href="{% url 'sections' section.slug %}">
+                <li>
+                    {{ section.name }}
+                </li>
+            </a>
         {% endfor %}
     </ul>
 {% endfor %}
