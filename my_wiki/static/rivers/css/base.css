@@ -1,0 +1,57 @@
+/* ELEMENT STYLING */
+body{
+  line-height:1.6;
+  font-size:18px;
+  color:#444;
+  padding:0;
+  margin: 0px;
+}
+h1,h2,h3{line-height:1.2}
+
+.header, .footer {
+  text-align: center;
+}
+
+.grid_contents {
+  width: 800px;
+  margin: 0 auto;
+}
+
+.contents {
+  text-align: left;
+}
+/* CSS GRID LAYOUT */
+
+.page {
+  display: grid;
+  grid-template-rows: min-content auto 30px;
+  grid-template-columns: repeat(auto-fit, 1fr);
+  grid-template-areas:
+  'home levels rivers'
+  'contents contents contents'
+  'footer footer footer';
+  height: 100vh;
+}
+
+.home { grid-area: home; }
+.levels { grid-area: levels; }
+.rivers { grid-area: rivers; }
+.grid_contents { grid-area: contents; }
+.footer { grid-area: footer; }
+
+/* COLOUR */
+.header {
+  background-color: #99D3DF;
+}
+
+.footer {
+  background-color: #88BBD6;
+}
+
+.grid_contents {
+  background-color: #CDCDCD;
+}
+
+body {
+  background-color: #E9E9E9;
+}

@@ -7,4 +7,5 @@ urlpatterns = [
     path('rivers/', include('rivers.urls')),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('markdownx/', include('markdownx.urls')),
 ]
