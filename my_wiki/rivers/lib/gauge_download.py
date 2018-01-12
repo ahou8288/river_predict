@@ -6,7 +6,6 @@ from django.utils import timezone
 import os
 
 cur_dir = 'rivers/lib/'
-print('Loading urls.')
 with open(cur_dir + 'gauge_urls.txt', 'r') as f:
     urls = f.read().split('\n')
 
@@ -96,10 +95,12 @@ def download_or_get_rivers():
     try:
         data = pickle.load(open(pickle_file,'rb'))
         print('pickle file found')
+        data['loaded'] = True
     except:
         data = get_all_rivers()
         pickle.dump(data,open(pickle_file,'wb'))
         print('loading pickle data from file')
+        data['loaded'] = False
     return data
 
 download_or_get_rivers()
