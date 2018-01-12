@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import River, Section, Level, Gauge
+from django.db.models import Max
 from django.utils import timezone
 import datetime
 import math
@@ -27,33 +28,18 @@ def rivers(request):
 
 
 def levels(request):
-    data = gauge_download.download_or_get_rivers()
-    if not data['loaded']:
-        print('New download data saved to file.')
-        for download_id, data in data.items():
-            print(data)
-            if data['name']:
-
-                if Gauge.objects.filter(name=data['name']).count():
-                    print('Adding new gauge {}'.format(data['name']))
-                    g = Gauge.objects.get(name=data['name'])
-                else:
-                    print('Adding new gauge {}'.format(data['name']))
-                    g = Gauge(name=data['name'], download_id=download_id)
-                    g.save()
-
-                if not math.isnan(data['discharge']):
-                    print('Discharge reading added for {}'.format(data['name']))
-                    l1 = Level(unit=1, gauge=g, value=data['discharge'])
-                    l1.save()
-                else:
-                    print('nan found discharge')
-                if not math.isnan(data['levels']):
-                    print('Level reading added for {}'.format(data['name']))
-                    l2 = Level(unit=0, gauge=g, value=data['levels'])
-                    l2.save()
-                else:
-                    print('nan found level')
-    else:
-        print('No new data to save to model.')
-    return render(request, 'levels.html', {'PAGE_TITLE': 'Levels'})
+    gauges = Gauge.objects.all()
+    data = []
+    for gauge in gauges:
+        latest_time = Level.objects.filter(gauge=gauge).aggregate(time=Max('time'))['time']
+        try:
+            level = Level.objects.get(gauge=gauge,time=latest_time)
+            data.append({
+                'name': gauge.name,
+                'type': level.unit,
+                'value': level.value,
+                'time': level.time
+            })
+        except:
+            pass
+    return render(request, 'levels.html', {'PAGE_TITLE': 'Levels', 'data': data})

@@ -1,14 +1,12 @@
 {% extends "base_page.html" %}
 {% block content %}
 <h1>River Levels</h1>
-<ul>
-    {% for river in rivers  %}
-      <li>
-            {{ river.name }}
-            <ul>
-                <li>{{ river.level }}</li>
-            </ul>
-      </li>
+<div class="level_grid">
+    {% for gauge in data  %}
+        <div>Name: {{ gauge.name }}</div>
+        <div>Type: {{ gauge.type }}</div>
+        <div>Value: {{ gauge.value }}</div>
+        <div>Time: {{ gauge.time }}</div>
     {% endfor %}
-</ul>
+</div>
 {% endblock %}
