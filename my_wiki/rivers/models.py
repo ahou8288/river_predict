@@ -35,11 +35,11 @@ class Section(models.Model):
     name = models.CharField(max_length=100)
     river = models.ForeignKey(River, on_delete=models.CASCADE)
     grade = models.CharField(max_length=100)
-    markdown = models.CharField(max_length=10000)
+    markdown = models.CharField(max_length=10000, default = '')
 
     # levels related
     gauge = models.ForeignKey(Gauge, on_delete=models.SET_NULL, null=True)
-    minimum = models.FloatField()
+    minimum = models.FloatField(null=True)
 
     # Editing
     creator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='author')

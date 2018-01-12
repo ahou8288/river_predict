@@ -6,10 +6,10 @@
 
 <a href="placeholder_url">Edit this page</a>
 
-<h5>
-    Grade: {{ section.grade }}
-</h5>
+<h5>Grade: {{ section.grade }}</h5>
+<h5>Minimum Level: {{ section.minimum }}</h5>
 
+Guide Content:
 <p>
     {{ section.markdown }}
 </p>
@@ -19,14 +19,10 @@
 {{ disclaimer }}
 
 <p>
-    {% if section.creator %}
-        Guide created by {{ section.creator }} on DATE    
-    {% else %}
-        Guide created by {{ section.creator }} on DATE    
-    {% endif %}
+    Guide created by {{ section.creator }} on {{ section.creation_time }}    
 </p>
 <p>
-    Last edited by PLACEHOLDER on DATE
+    Last edited by {{ section.recent_editor }} on {{ section.last_edit_time }}
 </p>
 
 {% endblock %}
