@@ -19,7 +19,11 @@
 {{ disclaimer }}
 
 <p>
-    Guide created by PLACEHOLDER on DATE    
+    {% if section.creator %}
+        Guide created by {{ section.creator }} on DATE    
+    {% else %}
+        Guide created by {{ section.creator }} on DATE    
+    {% endif %}
 </p>
 <p>
     Last edited by PLACEHOLDER on DATE

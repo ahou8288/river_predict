@@ -1,5 +1,6 @@
 from django.db import models
 from django.template.defaultfilters import slugify
+from django.contrib.auth.models import User
 
 
 class River(models.Model):
@@ -13,6 +14,7 @@ class River(models.Model):
 class Gauge(models.Model):
     name = models.CharField(max_length=100)
     download_id = models.CharField(max_length=10)
+
     def __str__(self):
         return self.name
 
@@ -29,10 +31,25 @@ class Level(models.Model):
 
 
 class Section(models.Model):
+    # Section related
     name = models.CharField(max_length=100)
     river = models.ForeignKey(River, on_delete=models.CASCADE)
+    grade = models.CharField(max_length=100)
+    markdown = models.CharField(max_length=10000)
+
+    # levels related
     gauge = models.ForeignKey(Gauge, on_delete=models.SET_NULL, null=True)
     minimum = models.FloatField()
+
+    # Editing
+    creator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='author')
+    creation_time = models.DateField(null=True)
+
+    recent_editor = models.ForeignKey(
+        User, on_delete=models.SET_NULL, null=True, related_name='editor')
+    last_edit_time = models.DateField(null=True)
+
+    # Linking
     slug = models.SlugField()
 
     def __str__(self):
@@ -61,6 +78,6 @@ class Section(models.Model):
 #     point = models.ForeignKey(Points)
 
 
-# class Interested(models.Model):
-#     user = models.ForeignKey(User)
-#     river = models.ForeignKey(River)
+class Interested(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    gauge = models.ForeignKey(Gauge, on_delete=models.CASCADE)
