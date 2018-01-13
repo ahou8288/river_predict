@@ -4,7 +4,7 @@
 <h2>{{ river.name }}</h2>
 <h4>{{ section.name }}</h4>
 
-<a href="placeholder_url">Edit this page</a>
+<a href="{% url 'edit_section' section.slug %}">Edit this page</a>
 
 <h5>Grade: {{ section.grade }}</h5>
 <h5>Minimum Level: {{ section.minimum }}</h5>
