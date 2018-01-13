@@ -66,22 +66,8 @@ class Section(models.Model):
     def description_markdown(self):
         return markdownify(self.description)
 
-# class Points(models.Model):
-#     POINT_TYPES = (
-#         (0, 'take_out'),
-#         (1, 'rapid'),
-#         (2, 'put_in'),
-#         (3, 'poi'),
-#     )
-#     name = models.CharField(max_length=100)
-#     point_type = models.CharField(max_length=1, choices=POINT_TYPES)
-#     latitude = models.DecimalField(max_digits=9, decimal_places=6)
-#     longditude = models.DecimalField(max_digits=9, decimal_places=6)
-
-
-# class Sectionpoints(models.Model):
-#     section = models.ForeignKey(Section)
-#     point = models.ForeignKey(Points)
+    def get_absolute_url(self):
+        return reverse('sections', kwargs={'slug': self.slug})
 
 
 class Interested(models.Model):
