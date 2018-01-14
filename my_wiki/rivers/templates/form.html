@@ -1,4 +1,14 @@
 {% extends "base_page.html" %}
 {% block content %}
-{{ form.as_p }}
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    {{ form.post }}
+    <br>
+    <button type="submit">Submit</button>
+</form>
+
+{{ form.media }}
+
 {% endblock %}

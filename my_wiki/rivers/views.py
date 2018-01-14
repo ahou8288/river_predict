@@ -1,10 +1,13 @@
 from django.shortcuts import render
 from .models import River, Section, Level, Gauge
 from django.db.models import Max
-from rivers import forms
+from rivers.forms import SectionForm
 import sys
 sys.path.insert(0, './rivers/lib')
 import gauge_download  # this actually runs it lol
+
+
+from django.views.generic import TemplateView
 
 # Create your views here.
 
@@ -51,7 +54,28 @@ def sections(request, slug):
     return render(request, 'section.html', {'PAGE_TITLE': section.name, 'section': section, 'river': river})
 
 
-def edit_section(request, slug):
-    section = Section.objects.get(slug=slug)
-    form = forms.SectionForm(instance=section)
-    return render(request, 'form.html', {'PAGE_TITLE': 'Editing ' + section.name, 'form': form})
+class SectionView(TemplateView):
+    template_name = 'form.html'
+
+    def get(self, request, slug):
+        # Create new section
+        section = Section.objects.get(slug=slug)
+        form = SectionForm( instance = section)
+
+        args = {'form': form}
+
+        return render(request, self.template_name, args)
+
+    # def post(self, request, slug):
+    #     # Edit existing section
+    #     form = SectionForm(request.POST)
+    #     if form.is_valid():
+    #         post = form.save(commit=False)
+    #         # post.user = request.user
+    #         post.save()
+
+    #         text = form.cleaned_data['post']
+    #         return redirect('home:home')
+
+    #     args = {'form': form, 'text': text}
+    #     return render(request, self.template_name, args)
