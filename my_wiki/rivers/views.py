@@ -1,10 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import River, Section, Level, Gauge
 from django.db.models import Max
 from rivers.forms import SectionForm
 import sys
 sys.path.insert(0, './rivers/lib')
 import gauge_download  # this actually runs it lol
+from django.utils import timezone
 
 
 from django.views.generic import TemplateView
@@ -61,21 +62,23 @@ class SectionView(TemplateView):
         # Create new section
         section = Section.objects.get(slug=slug)
         form = SectionForm( instance = section)
-
         args = {'form': form}
 
         return render(request, self.template_name, args)
 
-    # def post(self, request, slug):
-    #     # Edit existing section
-    #     form = SectionForm(request.POST)
-    #     if form.is_valid():
-    #         post = form.save(commit=False)
-    #         # post.user = request.user
-    #         post.save()
+    def post(self, request, slug):
+        # Edit existing section
+        slug_section = Section.objects.get(slug=slug)
+        form = SectionForm(request.POST, instance=slug_section)
 
-    #         text = form.cleaned_data['post']
-    #         return redirect('home:home')
-
-    #     args = {'form': form, 'text': text}
-    #     return render(request, self.template_name, args)
+        if form.is_valid():
+            changed_section = form.save(commit=False)
+            changed_section.recent_editor = request.user
+            changed_section.last_edit_time = timezone.now()
+            changed_section.save()
+            return redirect('view section',slug=slug)
+        else:
+            # Form is not valid
+            text = 'Form is invalid'
+            args = {'form': form, 'text': text}
+            return render(request, self.template_name, args)

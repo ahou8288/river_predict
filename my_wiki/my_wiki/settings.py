@@ -25,7 +25,7 @@ SECRET_KEY = '@yn1s%u63z$*2p32*1k^ls4x!)4=nd-z%i8lf=u@w2vuak)=-v'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.102',]
+ALLOWED_HOSTS = ['192.168.0.102','0.0.0.0',] # my phone for testing
 
 
 # Application definition
