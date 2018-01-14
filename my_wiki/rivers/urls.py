@@ -5,7 +5,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('home', views.index, name='index'),
     path('rivers', views.rivers, name='rivers'),
-    path('edit_section/<slug:slug>/',views.edit_section, name='edit_section'),
-    path('sections/<slug:slug>/', views.sections, name='sections'),
+    path('section/edit/<slug:slug>/',views.edit_section, name='edit section'),
+    path('section/view/<slug:slug>/', views.sections, name='view section'),
     path('levels', views.levels, name='levels'),
 ]
