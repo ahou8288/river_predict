@@ -58,25 +58,32 @@ def sections(request, slug):
 class SectionView(TemplateView):
     template_name = 'form.html'
 
-    def get(self, request, slug):
-        # Create new section
-        section = Section.objects.get(slug=slug)
-        form = SectionForm( instance = section)
+    def get(self, request, slug=None):
+        # Edit section
+        if slug:
+            section = Section.objects.get(slug=slug)
+        else:
+            section = Section()
+            section.description = "### Placeholder title\n"
+        form = SectionForm(instance=section)
         args = {'form': form}
 
         return render(request, self.template_name, args)
 
-    def post(self, request, slug):
-        # Edit existing section
-        slug_section = Section.objects.get(slug=slug)
-        form = SectionForm(request.POST, instance=slug_section)
+    def post(self, request, slug=None):
+        if not slug:
+            form = SectionForm(request.POST)
+        else:
+            # Save edit section
+            slug_section = Section.objects.get(slug=slug)
+            form = SectionForm(request.POST, instance=slug_section)
 
         if form.is_valid():
             changed_section = form.save(commit=False)
             changed_section.recent_editor = request.user
             changed_section.last_edit_time = timezone.now()
             changed_section.save()
-            return redirect('view section',slug=slug)
+            return redirect('view section', slug=changed_section.slug)
         else:
             # Form is not valid
             text = 'Form is invalid'
