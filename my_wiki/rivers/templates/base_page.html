@@ -26,6 +26,20 @@
                 RIVERS
             </div>
         </a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}">
+                <div class="header auth">
+                    LOG OUT
+                </div>
+            </a>
+        {% else %}
+            <a href="{% url 'login' %}">
+                <div class="header auth">
+                    LOG IN
+                </div>
+            </a>
+        {% endif %}
+
         <div class="grid_contents">
             {% block content %}
             {% endblock %}

@@ -125,3 +125,5 @@ STATIC_URL = '/static/'
 WEBSITE_TITLE = 'Whitewater NSW'
 
 STATIC_ROOT = BASE_DIR+'/static/'
+
+LOGIN_REDIRECT_URL = '/'

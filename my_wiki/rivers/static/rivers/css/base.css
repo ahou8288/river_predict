@@ -27,12 +27,13 @@ h1,h2,h3{line-height:1.2}
   grid-template-rows: min-content auto 30px;
   grid-template-columns: repeat(auto-fit, 1fr);
   grid-template-areas:
-  'home levels rivers'
-  'contents contents contents'
-  'footer footer footer';
+  'home levels rivers auth'
+  'contents contents contents contents'
+  'footer footer footer footer';
   height: 100vh;
 }
 
+.auth { grid-area: auth; }
 .home { grid-area: home; }
 .levels { grid-area: levels; }
 .rivers { grid-area: rivers; }
