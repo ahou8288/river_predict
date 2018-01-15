@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import River, Section, Level, Gauge
 from django.db.models import Max
-from rivers.forms import SectionForm
+from rivers.forms import SectionForm, RiverForm
 import sys
 sys.path.insert(0, './rivers/lib')
 import gauge_download  # this actually runs it lol
@@ -89,3 +89,21 @@ class SectionView(TemplateView):
             text = 'Form is invalid'
             args = {'form': form, 'text': text}
             return render(request, self.template_name, args)
+
+
+class RiverView(TemplateView):
+    template_name = 'form.html'
+
+    def get(self, request):
+        form = RiverForm()
+        args = {'form': form}
+
+        return render(request, self.template_name, args)
+
+    def post(self, request):
+        form = RiverForm(request.POST)
+        if form.is_valid():
+            form.save()
+        else:
+            print('invalid form')
+        return redirect('home')
