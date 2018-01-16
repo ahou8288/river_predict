@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import River, Section, Level, Gauge
+from .models import River, Section, Level, Gauge, Interested
 from django.db.models import Max
 from rivers.forms import SectionForm, RiverForm
 import sys
@@ -30,7 +30,13 @@ def rivers(request):
 
 
 def levels(request):
-    gauges = Gauge.objects.all()
+    if request.user.is_anonymous:
+        gauges = Gauge.objects.all()
+    else:
+        user_gauges = Interested.objects.filter(user = request.user)
+        print(user_gauges)
+        gauges = [i.gauge for i in user_gauges]
+
     data = []
     for gauge in gauges:
         latest_time = Level.objects.filter(
