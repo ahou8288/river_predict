@@ -25,7 +25,8 @@ SECRET_KEY = '@yn1s%u63z$*2p32*1k^ls4x!)4=nd-z%i8lf=u@w2vuak)=-v'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.102','0.0.0.0','127.0.0.1',] # my phone for testing
+ALLOWED_HOSTS = ['192.168.0.102', '0.0.0.0',
+                 '127.0.0.1', ]  # my phone for testing
 
 
 # Application definition
@@ -38,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'markdownx', 
+    'markdownx',
 ]
 
 MIDDLEWARE = [
@@ -124,6 +125,11 @@ STATIC_URL = '/static/'
 
 WEBSITE_TITLE = 'Whitewater NSW'
 
-STATIC_ROOT = BASE_DIR+'/static/'
+STATIC_ROOT = BASE_DIR + '/static/'
 
 LOGIN_REDIRECT_URL = '/'
+
+from datetime import datetime
+MEDIA_ROOT = BASE_DIR + '/media/'
+# MARKDOWNX_MEDIA_PATH = datetime.now().strftime('/markdownx/%Y/%m/%d')
+# MARKDOWNX_EDITOR_RESIZABLE = True
