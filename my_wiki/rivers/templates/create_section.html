@@ -1,0 +1,63 @@
+{% extends "base_page.html" %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'rivers/css/sectiongrid.css' %}" />
+
+<h1>Create Section</h1>
+
+<form method="post" class="formgrid">
+    {% csrf_token %}
+    {{ form.description }}
+    {{ form.media }}
+
+    <p class="river_lookup">
+        {{ form.river.label_tag }}
+        {{ form.river }}
+    </p>
+
+    <p class="river_create">
+        <a href="">Create New River</a>: Opens in current page
+    </p>
+
+    <p class="nickname">
+        Nickname /
+        {{ form.name.label_tag }}
+        {{ form.name }}
+    </p>
+
+    <p class="start_point">
+        Start - Start name
+    </p>
+
+    <p class="end_point">
+        End - End name
+    </p>
+
+    <p class="gauge">
+        {{ form.gauge.label_tag }}
+        {{ form.gauge }}
+    </p>
+
+    <p class="minimum">
+        {{ form.minimum.label_tag }}
+        {{ form.minimum }}
+    </p>
+
+    <p class="grade">
+        Gauge
+        {{ form.grade.label_tag }}
+        {{ form.grade }}
+    </p>
+
+    <p class="points">
+        Add points to map
+    </p>
+
+    <br>
+    <button type="submit" class="submit_button">
+        Submit
+    </button>
+</form>
+
+
+{% endblock %}

@@ -1,0 +1,38 @@
+
+.formgrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  grid-template-areas:
+  'river_lookup river_create'
+  'nickname nickname'
+  'start_point end_point'
+  'gauge minimum'
+  'grade grade'
+  'points points'
+  'desc desc'
+  'submit_button submit_button'
+}
+
+.river_lookup { grid-area: river_lookup; }
+.river_create { grid-area: river_create; }
+.start_point { grid-area: start_point; }
+.end_point { grid-area: end_point; }
+.nickname { grid-area: nickname; }
+.gauge { grid-area: gauge; }
+.minimum { grid-area: minimum; }
+.grade { grid-area: grade; }
+.points { grid-area: points; }
+.submit_button { grid-area: submit_button; }
+
+.markdownx { 
+    grid-area: desc;
+}
+
+/*.markdownx-preview { grid-area: description_demo; }*/
+
+textarea#id_description {
+    /*grid-area: description;*/
+    width: 100%;
+    height: 100%;
+}

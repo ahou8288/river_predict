@@ -74,7 +74,8 @@ class SectionView(TemplateView):
         form = SectionForm(instance=section)
         args = {'form': form}
 
-        return render(request, self.template_name, args)
+        # return render(request, self.template_name, args)
+        return render(request, 'create_section.html' , args)
 
     def post(self, request, slug=None):
         if not slug:
