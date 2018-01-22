@@ -6,7 +6,6 @@
   grid-template-areas:
   'river_lookup river_create'
   'nickname nickname'
-  'start_point end_point'
   'gauge minimum'
   'grade grade'
   'points points'
@@ -16,8 +15,6 @@
 
 .river_lookup { grid-area: river_lookup; }
 .river_create { grid-area: river_create; }
-.start_point { grid-area: start_point; }
-.end_point { grid-area: end_point; }
 .nickname { grid-area: nickname; }
 .gauge { grid-area: gauge; }
 .minimum { grid-area: minimum; }
