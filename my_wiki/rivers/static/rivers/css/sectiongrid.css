@@ -8,8 +8,9 @@
   'nickname nickname'
   'gauge minimum'
   'grade grade'
-  'points points'
   'desc desc'
+  'points points'
+  'map map'
   'submit_button submit_button'
 }
 
@@ -19,17 +20,18 @@
 .gauge { grid-area: gauge; }
 .minimum { grid-area: minimum; }
 .grade { grid-area: grade; }
-.points { grid-area: points; }
 .submit_button { grid-area: submit_button; }
-
-.markdownx { 
-    grid-area: desc;
-}
-
-/*.markdownx-preview { grid-area: description_demo; }*/
+.markdownx { grid-area: desc; }
+.points { grid-area: points; }
+#map { grid-area: map; }
 
 textarea#id_description {
-    /*grid-area: description;*/
-    width: 100%;
-    height: 100%;
+  /*grid-area: description;*/
+  width: 100%;
+  height: 100%;
+}
+
+div#map {
+  width: 100%;
+  min-height: 400px;
 }

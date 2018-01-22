@@ -2,13 +2,13 @@
 {% load static %}
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'rivers/css/sectiongrid.css' %}" />
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuNRjdEY7DeYqRRov1czGcgS9hmLBwmc4"></script>
+<script type="text/javascript" src="{% static 'rivers/js/maps.js' %}"></script>
 
 <h1>Create Section</h1>
 
 <form method="post" class="formgrid">
     {% csrf_token %}
-    {{ form.description }}
-    {{ form.media }}
 
     <p class="river_lookup">
         {{ form.river.label_tag }}
@@ -41,11 +41,22 @@
         {{ form.grade }}
     </p>
 
+    <div class="markdownx">
+        {{ form.description.label_tag }}
+        {{ form.description }}
+        <div class="markdownx-preview">
+            {{ form.media }}
+        </div>
+
+    </div>
+
     <p class="points">
-        <div id="map"></div>
+        <input type="button" value="New point" onclick="dropPin()">
 
         Add points to map
     </p>
+    
+    <div id="map"></div>
 
     <br>
     <button type="submit" class="submit_button">
