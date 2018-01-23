@@ -41,10 +41,10 @@ function initialize() {
   // Add controls to the map
   var buttonPutIn = document.createElement('div');
   var controlArgs = {
-    'Take out':placeEnd,
-    'Put in':placeStart,
-    'Rapids':placeEnd,
-    'Point of Interest':placeEnd,
+    'Take out': 'placeEnd',
+    'Put in': 'placeStart',
+    // 'Rapids':placeEnd,
+    // 'Point of Interest':placeEnd,
   }
   var centerControl = new CenterControl(buttonPutIn, controlArgs);
   buttonPutIn.index = 1;
