@@ -10,7 +10,7 @@
   'grade grade'
   'desc desc'
   'points points'
-  'map map'
+  'map_container map_container'
   'submit_button submit_button'
 }
 
@@ -23,7 +23,7 @@
 .submit_button { grid-area: submit_button; }
 .markdownx { grid-area: desc; }
 .points { grid-area: points; }
-#map { grid-area: map; }
+.map_container { grid-area: map_container; }
 
 textarea#id_description {
   /*grid-area: description;*/

@@ -1,22 +1,8 @@
-
-var directionsDisplay;
-var directionsService = new google.maps.DirectionsService();
 var map;
 var startMarker;
 var endMarker;
 
-function initialize() {
-  directionsDisplay = new google.maps.DirectionsRenderer();
-  var origin_location = new google.maps.LatLng(-33.865143, 151.209900); // Sydney
-  var mapOptions = {
-    zoom: 8,
-    center: origin_location
-  }
-  map = new google.maps.Map(document.getElementById("map"), mapOptions);
-  directionsDisplay.setMap(map);
-}
-
-function place_end() {
+function placeEnd() {
   // if any previous marker exists, let's first remove it from the map
   if (endMarker) {
     endMarker.setMap(null);
@@ -28,15 +14,9 @@ function place_end() {
     map: map,
     draggable: true,
   });
-
-  copyMarkerpositionToInput();
-  // add an event "onDrag"
-  google.maps.event.addListener(endMarker, 'dragend', function() {
-    copyMarkerpositionToInput(endMarker);
-  });
 }
 
-function place_start(){
+function placeStart(){
   // if any previous marker exists, let's first remove it from the map
   if (startMarker) {
     startMarker.setMap(null);
@@ -48,18 +28,28 @@ function place_start(){
     map: map,
     draggable: true,
   });
-
-  copyMarkerpositionToInput();
-  // add an event "onDrag"
-  google.maps.event.addListener(startMarker, 'dragend', function() {
-    copyMarkerpositionToInput(startMarker);
-  });
 }
 
+function initialize() {
+  var originLocation = new google.maps.LatLng(-33.865143, 151.209900); // Sydney
+  var mapOptions = {
+    zoom: 8,
+    center: originLocation
+  }
+  map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
-function copyMarkerpositionToInput(marker) {
-  // get the position of the marker, and set it as the value of input
-  // document.getElementById("end").value = marker.getPosition().lat() +','+  marker.getPosition().lng();
+  // Add controls to the map
+  var buttonPutIn = document.createElement('div');
+  var controlArgs = {
+    'Take out':placeEnd,
+    'Put in':placeStart,
+    'Rapids':placeEnd,
+    'Point of Interest':placeEnd,
+  }
+  var centerControl = new CenterControl(buttonPutIn, controlArgs);
+  buttonPutIn.index = 1;
+  map.controls[google.maps.ControlPosition.TOP_CENTER].push(buttonPutIn);
+
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);

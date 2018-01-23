@@ -3,6 +3,7 @@
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'rivers/css/sectiongrid.css' %}" />
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuNRjdEY7DeYqRRov1czGcgS9hmLBwmc4"></script>
+<script type="text/javascript" src="{% static 'rivers/js/mapbutton.js' %}"></script>
 <script type="text/javascript" src="{% static 'rivers/js/maps.js' %}"></script>
 
 <h1>Create Section</h1>
@@ -51,15 +52,12 @@
     </div>
 
     <p class="points">
-        <input type="button" value="Put in" onclick="place_start()">
-        <input type="button" value="Take out" onclick="place_end()">
-        <!-- <input type="button" value="Rapid" onclick="dropPin(2)"> -->
-        <!-- <input type="button" value="Point of interest" onclick="dropPin(3)"> -->
-
         Add points to map
     </p>
-    
-    <div id="map"></div>
+    <div class="map_container">
+        title
+        <div id="map"></div>
+    </div>
 
     <br>
     <button type="submit" class="submit_button">
