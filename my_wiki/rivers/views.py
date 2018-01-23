@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import River, Section, Level, Gauge, Interested
 from django.db.models import Max
-from rivers.forms import SectionForm, RiverForm
+from rivers.forms import SectionForm, RiverForm, PointForm
 import sys
 sys.path.insert(0, './rivers/lib')
 import gauge_download  # this actually runs it lol
@@ -72,7 +72,11 @@ class SectionView(TemplateView):
             section = Section()
             section.description = "### Placeholder title\n"
         form = SectionForm(instance=section)
-        args = {'form': form}
+        point_form = PointForm()
+        args = {
+            'form' : form,
+            'point_form1' : point_form,
+            'point_form2' : point_form}
 
         # return render(request, self.template_name, args)
         return render(request, 'create_section.html' , args)
@@ -84,6 +88,9 @@ class SectionView(TemplateView):
             # Save edit section
             slug_section = Section.objects.get(slug=slug)
             form = SectionForm(request.POST, instance=slug_section)
+
+        point_form1 = PointForm(request.POST)
+        point_form2 = PointForm(request.POST)
 
         if form.is_valid():
             changed_section = form.save(commit=False)
