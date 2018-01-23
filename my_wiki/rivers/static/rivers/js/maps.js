@@ -2,20 +2,21 @@
 var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
 var map;
+var startMarker;
 var endMarker;
 
 function initialize() {
   directionsDisplay = new google.maps.DirectionsRenderer();
-  var paris = new google.maps.LatLng(48.86100157399595,2.335891842842086);
+  var origin_location = new google.maps.LatLng(-33.865143, 151.209900); // Sydney
   var mapOptions = {
-    zoom: 7,
-    center: paris
+    zoom: 8,
+    center: origin_location
   }
   map = new google.maps.Map(document.getElementById("map"), mapOptions);
   directionsDisplay.setMap(map);
 }
 
-function dropPin() {
+function place_end() {
   // if any previous marker exists, let's first remove it from the map
   if (endMarker) {
     endMarker.setMap(null);
@@ -27,30 +28,38 @@ function dropPin() {
     map: map,
     draggable: true,
   });
+
   copyMarkerpositionToInput();
   // add an event "onDrag"
   google.maps.event.addListener(endMarker, 'dragend', function() {
-    copyMarkerpositionToInput();
+    copyMarkerpositionToInput(endMarker);
   });
 }
 
-function copyMarkerpositionToInput() {
+function place_start(){
+  // if any previous marker exists, let's first remove it from the map
+  if (startMarker) {
+    startMarker.setMap(null);
+  }
+  // create the marker
+  startMarker = new google.maps.Marker({
+    position: map.getCenter(),
+    label: 'Put in',
+    map: map,
+    draggable: true,
+  });
+
+  copyMarkerpositionToInput();
+  // add an event "onDrag"
+  google.maps.event.addListener(startMarker, 'dragend', function() {
+    copyMarkerpositionToInput(startMarker);
+  });
+}
+
+
+function copyMarkerpositionToInput(marker) {
   // get the position of the marker, and set it as the value of input
-  document.getElementById("end").value = endMarker.getPosition().lat() +','+  endMarker.getPosition().lng();
+  // document.getElementById("end").value = marker.getPosition().lat() +','+  marker.getPosition().lng();
 }
 
-function calcRoute() {
-  var start = document.getElementById("start").value;
-  var end = document.getElementById("end").value;
-  var request = {
-    origin:start,
-    destination:end,
-    travelMode: google.maps.TravelMode.DRIVING
-  };
-  directionsService.route(request, function(result, status) {
-    if (status == google.maps.DirectionsStatus.OK) {
-      directionsDisplay.setDirections(result);
-    }
-  });
-}
 google.maps.event.addDomListener(window, 'load', initialize);
