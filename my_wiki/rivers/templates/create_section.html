@@ -8,7 +8,7 @@
 
 <h1>Create Section</h1>
 
-<form method="post" class="formgrid">
+<form method="post" id="formgrid" class="formgrid">
     {% csrf_token %}
 
     <p class="river_lookup">
@@ -55,14 +55,18 @@
         Add points to map
     </p>
     <div class="map_container">
-        title
+        Map of section
         <div id="map"></div>
     </div>
+<!-- 
+    <input type="text" name="start_lat" hidden>
+    <input type="text" name="start_long" hidden>
+    <input type="text" name="end_lat" hidden>
+    <input type="text" name="end_long" hidden> -->
 
     <br>
-    <button type="submit" class="submit_button">
-        Submit
-    </button>
+    <button onclick="submitForm()" class="submit_button">Submit</button>
+
 </form>
 
 

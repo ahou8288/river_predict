@@ -43,8 +43,6 @@ function initialize() {
   var controlArgs = {
     'Take out': 'placeEnd',
     'Put in': 'placeStart',
-    // 'Rapids':placeEnd,
-    // 'Point of Interest':placeEnd,
   }
   var centerControl = new CenterControl(buttonPutIn, controlArgs);
   buttonPutIn.index = 1;
@@ -53,3 +51,9 @@ function initialize() {
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
+
+
+function submitForm(){
+  
+  document.getElementById("formgrid").submit();
+}
