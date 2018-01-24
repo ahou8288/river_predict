@@ -1,5 +1,5 @@
 from django.forms import ModelForm, ModelChoiceField, FloatField
-from .models import Section, Gauge, River, Points
+from .models import Section, Gauge, River, Point
 from markdownx.fields import MarkdownxFormField
 
 
@@ -21,9 +21,3 @@ class RiverForm(ModelForm):
     class Meta:
         model = River
         fields = ['name', 'description']
-
-
-class PointForm(ModelForm):
-    class Meta:
-        model = Points
-        exclude = []

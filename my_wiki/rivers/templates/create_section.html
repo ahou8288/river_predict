@@ -60,10 +60,11 @@
         <div id="map"></div>
     </div>
 
-    <!-- <div hidden> -->
-        {{ point_form1 }}
-        {{ point_form2 }}
-    <!-- </div> -->
+    {% for form in formset %}
+        <div>
+            {{ form.as_p }}
+        </div>
+    {% endfor %}
 
     <br>
     <button onclick="submitForm()" class="submit_button">Submit</button>
