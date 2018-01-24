@@ -71,7 +71,7 @@ function submitForm(){
 function fillMarkerForm(marker,id){
     if (marker){
         pos = marker.getPosition()
-        document.getElementById(id+"latitude").value = pos.lat()
-        document.getElementById(id+"longditude").value = pos.lng()
+        document.getElementById(id+"latitude").value = pos.lat().toFixed(6)
+        document.getElementById(id+"longditude").value = pos.lng().toFixed(6)
     }
 }
