@@ -3,6 +3,7 @@ from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 from markdownx.models import MarkdownxField
 from markdownx.utils import markdownify
+from django.urls import reverse
 
 
 class River(models.Model):
@@ -29,7 +30,7 @@ class Level(models.Model):
     gauge = models.ForeignKey(Gauge, on_delete=models.CASCADE)
     value = models.FloatField()
     time = models.DateTimeField(auto_now_add=True)
-    unit = models.CharField(max_length=1, choices=READING_TYPES)
+    unit = models.IntegerField(choices=READING_TYPES)
 
 
 class Section(models.Model):
@@ -67,7 +68,7 @@ class Section(models.Model):
         return markdownify(self.description)
 
     def get_absolute_url(self):
-        return reverse('sections', kwargs={'slug': self.slug})
+        return reverse('view section', kwargs={'slug': self.slug})
 
 
 class Interested(models.Model):
@@ -82,7 +83,7 @@ class Point(models.Model):
         (3, 'Point of interest'),
     )
     # name = models.CharField(max_length=100)
-    point_type = models.CharField(max_length=1, choices=POINT_TYPES)
+    point_type = models.IntegerField(choices=POINT_TYPES)
     latitude = models.DecimalField(max_digits=9, decimal_places=6)
     longditude = models.DecimalField(max_digits=9, decimal_places=6)
     section = models.ForeignKey(Section, on_delete=models.CASCADE)
