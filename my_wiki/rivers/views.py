@@ -66,20 +66,26 @@ class SectionView(TemplateView):
     template_name = 'form.html'
 
     def get(self, request, slug=None):
-        # Edit section
+
+        # Create formset
+        PointFormSet = modelformset_factory(Point, fields=(
+            'latitude', 'longditude', 'point_type'), min_num=2, max_num=2)
+
+        # Deal with whether there is a section specified
         if slug:
             section = Section.objects.get(slug=slug)
+            point_query = Point.objects.filter(section=section)
         else:
             section = Section()
             section.description = "### Placeholder title\n"
+            point_query = Point.objects.none()
+
+        # Create the forms
         form = SectionForm(instance=section)
-
-        PointFormSet = modelformset_factory(Point, fields=(
-            'latitude', 'longditude', 'point_type'), min_num=2, max_num=2)
-        point_query = Point.objects.all()
         point_formset = PointFormSet(queryset=point_query)
-        args = {'form': form, 'formset': point_formset}
 
+        # Render the view
+        args = {'form': form, 'formset': point_formset}
         return render(request, 'create_section.html', args)
 
     def post(self, request, slug=None):
