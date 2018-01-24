@@ -89,6 +89,7 @@ class SectionView(TemplateView):
         return render(request, 'create_section.html', args)
 
     def post(self, request, slug=None):
+
         if not slug:
             form = SectionForm(request.POST)
         else:
@@ -96,11 +97,25 @@ class SectionView(TemplateView):
             slug_section = Section.objects.get(slug=slug)
             form = SectionForm(request.POST, instance=slug_section)
 
+
         if form.is_valid():
             changed_section = form.save(commit=False)
             changed_section.recent_editor = request.user
             changed_section.last_edit_time = timezone.now()
             changed_section.save()
+
+            PointFormSet = modelformset_factory(Point, fields=(
+                'latitude', 'longditude', 'point_type'), min_num=2, max_num=2)
+            point_formset = PointFormSet(request.POST)
+            if point_formset.is_valid():
+                points = point_formset.save(commit=False)
+                for point in points:
+                    print('Point is valid. Saving.')
+                    point.section=changed_section
+                    point.save()
+            else:
+                print('Invalid formset')
+
             return redirect('view section', slug=changed_section.slug)
         else:
             # Form is not valid
