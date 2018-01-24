@@ -62,6 +62,7 @@
 
     {% for form in formset %}
         <div>
+            Point {{ forloop.counter }}
             {{ form.as_p }}
         </div>
     {% endfor %}

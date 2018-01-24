@@ -75,7 +75,7 @@ class SectionView(TemplateView):
         form = SectionForm(instance=section)
 
         PointFormSet = modelformset_factory(Point, fields=(
-            'latitude', 'longditude'), min_num=2, max_num=2)
+            'latitude', 'longditude', 'point_type'), min_num=2, max_num=2)
         point_query = Point.objects.all()
         point_formset = PointFormSet(queryset=point_query)
         args = {'form': form, 'formset': point_formset}
