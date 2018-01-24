@@ -74,7 +74,7 @@ class Interested(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     gauge = models.ForeignKey(Gauge, on_delete=models.CASCADE)
 
-class Points(models.Model):
+class Point(models.Model):
     POINT_TYPES = (
         (0, 'Take out'),
         (1, 'Put in'),
@@ -85,8 +85,4 @@ class Points(models.Model):
     point_type = models.CharField(max_length=1, choices=POINT_TYPES)
     latitude = models.DecimalField(max_digits=9, decimal_places=6)
     longditude = models.DecimalField(max_digits=9, decimal_places=6)
-
-
-class Sectionpoints(models.Model):
     section = models.ForeignKey(Section, on_delete=models.CASCADE)
-    point = models.ForeignKey(Points, on_delete=models.CASCADE)
