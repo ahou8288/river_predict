@@ -62,7 +62,7 @@
 
     {{ formset.management_form }}
     {% for form in formset %}
-        <div>
+        <div hidden>
             Point {{ forloop.counter }}
             {{ form.as_p }}
         </div>

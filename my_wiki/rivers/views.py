@@ -100,7 +100,8 @@ class SectionView(TemplateView):
 
         if form.is_valid():
             changed_section = form.save(commit=False)
-            changed_section.recent_editor = request.user
+            if not request.user.is_anonymous:
+                changed_section.recent_editor = request.user
             changed_section.last_edit_time = timezone.now()
             changed_section.save()
 
