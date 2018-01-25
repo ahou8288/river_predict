@@ -61,11 +61,13 @@ function initialize() {
 
     // Put points on the map
     var endFormData = getMarkerForm('id_form-0-');
+    document.getElementById("id_form-0-point_type").selectedIndex = 0;
     if (endFormData.lat && endFormData.lng) {
         placeEnd(endFormData)
     }
 
     var startFormData = getMarkerForm('id_form-1-');
+    document.getElementById("id_form-1-point_type").selectedIndex = 1;
     if (startFormData.lat && startFormData.lng) {
         placeStart(startFormData)
     }
