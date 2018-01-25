@@ -7,6 +7,7 @@ import sys
 sys.path.insert(0, './rivers/lib')
 # import gauge_download  # this actually runs it lol
 from django.utils import timezone
+from django.contrib import messages 
 
 
 from django.views.generic import TemplateView
@@ -116,6 +117,8 @@ class SectionView(TemplateView):
                     point.save()
             else:
                 print('Invalid formset')
+                messages.error(request, "Error")
+                print(point_formset.errors)
 
             return redirect('view section', slug=changed_section.slug)
         else:
