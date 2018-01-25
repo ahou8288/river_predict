@@ -5,7 +5,7 @@ from rivers.forms import SectionForm, RiverForm
 from django.forms import modelformset_factory
 import sys
 sys.path.insert(0, './rivers/lib')
-import gauge_download  # this actually runs it lol
+# import gauge_download  # this actually runs it lol
 from django.utils import timezone
 
 
