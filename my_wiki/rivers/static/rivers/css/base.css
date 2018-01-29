@@ -19,12 +19,12 @@ a.header_link, a.login_link {
 
 div#new_header {
   border-style: none none outset none;
-  border-width: 2px;
+  border-width: 3px;
 }
 
 .grid_contents {
-    border-width: 3px;
-    border-style: none groove none groove;
+    border-width: 2px;
+    border-style: none outset none inset ;
 }
 
 /* LAYOUT */
@@ -79,7 +79,7 @@ a.header_link, a.login_link {
 .footer {
     background-color: #000;
     color: #fff;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .grid_contents {
@@ -94,6 +94,6 @@ body {
 /*link hover*/
 span#header_links>a:hover, span#login_links>a:hover {
     background-color:rgba(0, 0, 0, 0.1);
-    border-bottom: 3px solid black; /* or whatever colour you'd prefer */
+    border-bottom: 3px solid grey; /* or whatever colour you'd prefer */
 }
 
