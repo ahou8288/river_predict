@@ -1,16 +1,32 @@
 /* ELEMENT STYLING */
 
-/*body {
-    line-height:1.6;
-    font-size:18px;
-    color:#444;
-    padding:0;
-    margin: 0px;
-}
 h1,h2,h3 {
     line-height:1.2;
 }
-*/
+
+body {
+    color:#444;
+    line-height:1.2;
+}
+
+
+a.header_link, a.login_link {
+    font-family: "Circular","Helvetica Neue",Helvetica,Arial,sans-serif;
+    color:#444;
+    font-weight: bold;
+    text-decoration:none;
+}
+
+div#new_header {
+  border-style: none none outset none;
+  border-width: 2px;
+}
+
+.grid_contents {
+    border-width: 3px;
+    border-style: none groove none groove;
+}
+
 /* LAYOUT */
 
 body {
@@ -21,8 +37,9 @@ body {
 
 .grid_contents {
     flex-grow: 1;
-    width: 800px;
+    width: 1000px;
     margin: 0 auto;
+    padding: 5px;
 }
 
 div#new_header {
@@ -31,23 +48,18 @@ div#new_header {
     justify-content: space-between;
 }
 
-a.header_link, a.login_link {
-    color: blue;
-    text-decoration:none;
-    padding-right: 10px;
-    padding-left: 10px;
-    display: flex;
-    align-items: center;
-}
-
 span#header_links, span#login_links {
     display: -ms-flex;
     display: -webkit-flex;
     display: flex;
 }
 
-span>a {
-    flex:1;
+a.header_link, a.login_link {
+    padding-right: 10px;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+    flex: 1;
 }
 
 .footer {
@@ -61,11 +73,13 @@ span>a {
 
 /* COLOUR */
 #new_header {
-    background-color: #99D3DF;
+    background-color: rgba(255,255,255,0.97);
 }
 
 .footer {
-    background-color: #88BBD6;
+    background-color: #000;
+    color: #fff;
+    font-size: 12px;
 }
 
 .grid_contents {
@@ -78,7 +92,7 @@ body {
 
 /* Other styles; */
 /*link hover*/
-span>a:hover {
+span#header_links>a:hover, span#login_links>a:hover {
     background-color:rgba(0, 0, 0, 0.1);
     border-bottom: 3px solid black; /* or whatever colour you'd prefer */
 }
