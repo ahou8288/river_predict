@@ -76,17 +76,19 @@ class SectionView(TemplateView):
         if slug:
             section = Section.objects.get(slug=slug)
             point_query = Point.objects.filter(section=section)
+            river_form = None
         else:
             section = Section()
             section.description = "### Placeholder title\n"
             point_query = Point.objects.none()
+            river_form = RiverForm()
 
         # Create the forms
         form = SectionForm(instance=section)
         point_formset = PointFormSet(queryset=point_query)
 
         # Render the view
-        args = {'form': form, 'formset': point_formset}
+        args = {'form': form, 'formset': point_formset, 'river_form':river_form}
         return render(request, 'create_section.html', args)
 
     def post(self, request, slug=None):

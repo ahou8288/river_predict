@@ -13,13 +13,20 @@
     {% csrf_token %}
 
     <p class="river_lookup">
+        Select existing river<br/>
         {{ form.river.label_tag }}
         {{ form.river }}
     </p>
-
-    <p class="river_create">
-        <a href="">Create New River</a>: Opens in current page
-    </p>
+    {% if river_form %}
+        <p class="river_create">
+            OR Add new river.<br/>
+            {{ river_form.name.label_tag }}
+            {{ river_form.name }}
+            <br/>
+            {{ river_form.description.label_tag }}
+            {{ river_form.description }}
+        </p>
+    {% endif %}
 
     <p class="nickname">
         Section 
@@ -46,15 +53,9 @@
     <div class="markdownx">
         {{ form.description.label_tag }}
         {{ form.description }}
-        <div class="markdownx-preview">
-            {{ form.media }}
-        </div>
-
+        {{ form.media }}
     </div>
 
-    <p class="points">
-        Add points to map
-    </p>
     <div class="map_container">
         Map of section
         <div id="map"></div>
@@ -62,7 +63,7 @@
 
     {{ formset.management_form }}
     {% for form in formset %}
-        <div>
+        <div hidden>
             Point {{ forloop.counter }}
             {{ form.as_p }}
         </div>
@@ -73,5 +74,6 @@
 
 </form>
 
+<script type="text/javascript" src="{% static 'rivers/js/section.js' %}"></script>
 
 {% endblock %}
