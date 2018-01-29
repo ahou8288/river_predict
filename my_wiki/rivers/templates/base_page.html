@@ -12,35 +12,41 @@
             {% endif %}
         </title>
     </head>
+
     <body class="page">
-        <a href="{% url 'index' %}">
-            <div class="header home">
-                HOME
-            </div>
-        </a>
-        <a href="{% url 'levels' %}">
-            <div class="header Levels">
-                LEVELS
-            </div>
-        </a>
-        <a href="{% url 'rivers' %}">
-            <div class="header Rivers">
-                RIVERS
-            </div>
-        </a>
-        {% if user.is_authenticated %}
-            <a href="{% url 'logout' %}">
-                <div class="header auth">
-                    LOG OUT
-                </div>
-            </a>
-        {% else %}
-            <a href="{% url 'login' %}">
-                <div class="header auth">
-                    LOG IN
-                </div>
-            </a>
-        {% endif %}
+        <div id="new_header">
+            <!-- Site Logo -->
+            <span class="site_logo">
+                <img src="{% static 'rivers/images/logo_small.png' %}">
+            </span>
+            <!-- Site links -->
+            <span id="header_links">
+                <a class="header_link" href="{% url 'index' %}">
+                        HOME
+                </a>
+                <a class="header_link" href="{% url 'levels' %}">
+                        LEVELS
+                </a>
+                <a class="header_link" href="{% url 'rivers' %}">
+                        RIVERS
+                </a>
+            </span>
+            <!-- Login info -->
+            <span id="login_links">
+                {% if user.is_authenticated %}
+                    <a class="login_link" href="{% url 'logout' %}">
+                        LOG OUT
+                    </a>
+                {% else %}
+                    <a class="login_link" href="{% url 'login' %}">
+                        LOG IN
+                    </a>
+                    <a class="login_link" href="{% url 'login' %}">
+                        REGISTER
+                    </a>
+                {% endif %}
+            </span>
+        </div>
 
         <div class="grid_contents">
             {% block content %}
