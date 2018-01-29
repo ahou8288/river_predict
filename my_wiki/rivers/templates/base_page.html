@@ -2,7 +2,7 @@
     <head>
         {% load static %}
         <link rel="stylesheet" type="text/css" href="{% static 'rivers/css/base.css' %}" />
-        <link rel="shortcut icon" type="image/png" href="{% static 'rivers/images/logo.ico' %}" />
+        <link rel="shortcut icon" type="image/png" href="{% static 'rivers/images/drop.ico' %}" />
         
         <title>
             {% if PAGE_TITLE %}
@@ -17,7 +17,9 @@
         <div id="new_header">
             <!-- Site Logo -->
             <span class="site_logo">
-                <img src="{% static 'rivers/images/logo_small.png' %}">
+                <a href="{% url 'index' %}">
+                    <img src="{% static 'rivers/images/WW_NSW_logo_small_tran.png' %}">
+                </a>
             </span>
             <!-- Site links -->
             <span id="header_links">
