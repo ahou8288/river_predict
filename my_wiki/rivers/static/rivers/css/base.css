@@ -1,5 +1,4 @@
 /* ELEMENT STYLING */
-
 h1,h2,h3 {
     line-height:1.2;
 }
@@ -29,15 +28,20 @@ div#new_header {
 
 /* LAYOUT */
 
-body {
+html, body {
     margin: 0;
+    padding: 0;
+}
+
+body {
     display: flex;
     flex-direction: column;
 }
 
 .grid_contents {
     flex-grow: 1;
-    width: 1000px;
+    width: 100%;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 5px;
 }
