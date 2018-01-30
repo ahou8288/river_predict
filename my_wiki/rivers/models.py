@@ -54,6 +54,7 @@ class Section(models.Model):
     last_edit_time = models.DateField(null=True)
 
     # Linking
+    url_id = models.IntegerField(null=True)
     slug = models.SlugField()
 
     def __str__(self):
@@ -82,8 +83,9 @@ class Point(models.Model):
         (2, 'Rapid'),
         (3, 'Point of interest'),
     )
-    # name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, null=True)
     point_type = models.IntegerField(choices=POINT_TYPES)
     latitude = models.DecimalField(max_digits=9, decimal_places=6)
     longditude = models.DecimalField(max_digits=9, decimal_places=6)
     section = models.ForeignKey(Section, on_delete=models.CASCADE)
+    url_id = models.IntegerField(null=True)
