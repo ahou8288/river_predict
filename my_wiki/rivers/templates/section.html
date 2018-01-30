@@ -1,5 +1,15 @@
 {% extends "base_page.html" %}
+{% load static %}
 {% block content %}
+
+{% if display_map %}
+    <script type="text/javascript">
+        var put_in = {lat:{{ put_in.lat }},lng:{{ put_in.lng }}}
+        var take_out = {lat:{{ take_out.lat }},lng:{{ take_out.lng }}}
+    </script>
+    <script type="text/javascript" src="{% static 'rivers/js/section_map.js' %}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuNRjdEY7DeYqRRov1czGcgS9hmLBwmc4&callback=initMap" async defer></script>
+{% endif %}
 
 <h2>{{ river.name }}</h2>
 <h4>{{ section.name }}</h4>
@@ -14,7 +24,10 @@ Guide Content:
     {{ section.description_markdown|safe }}
 </p>
 
-<div class="map">Map</div>
+
+{% if display_map %}
+    <div id="map" style="height: 300px;"></div>
+{% endif %}
 
 <h3>Disclaimer</h3>
 <p>
