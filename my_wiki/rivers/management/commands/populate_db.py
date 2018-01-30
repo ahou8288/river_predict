@@ -37,20 +37,21 @@ class Command(BaseCommand):
 
             # Get put in and takeout info if avaliable
             put_in_data, take_out_data = None, None
-            if river['ENTRY POINT'][:20] == '/accesspoint-detail/':
+            if 'ENTRY POINT' in river and river['ENTRY POINT'] and river['ENTRY POINT'][:20] == '/accesspoint-detail/':
                 put_in_num = river['ENTRY POINT'][20:]
                 put_in_data = get_data(put_in_num)
             else:
-                print('No entry point')
+                continue
 
-            if river['EXIT POINT'][:20] == '/accesspoint-detail/':
+            if 'EXIT POINT' in river and river['EXIT POINT'] and river['EXIT POINT'][:20] == '/accesspoint-detail/':
                 take_out_num = river['EXIT POINT'][20:]
                 take_out_data = get_data(take_out_num)
-                print('No exit point')
+            else:
+                continue
 
-            if not put_in_data or not take_out_data:
-                print('Section end points invalid')
-                break
+            if not put_in_data or not take_out_data or not'title' in put_in_data or not 'title' in take_out_data :
+                print('Section end points are invalid')
+                continue
 
             section_name = '{} to {}'.format(
                 put_in_data['title'], take_out_data['title'])
@@ -61,7 +62,11 @@ class Command(BaseCommand):
                 # Section name
                 my_section.name = section_name
                 # Section grade
-                my_section.grade = river['HIGHEST GRADE']
+                if  river['HIGHEST GRADE']:
+                    my_section.grade = river['HIGHEST GRADE']
+                else:
+                    my_section.grade = 'Unknown'
+
                 # Section Description
                 if river['Description']:
                     description_text = river['Description']
