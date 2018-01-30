@@ -5,10 +5,12 @@ function initMap() {
         zoom: 8
     });
     var marker1 = new google.maps.Marker({
+        label: 'Put in',
         position: put_in,
         map: map
     });
     var marker2 = new google.maps.Marker({
+        label: 'Take out',
         position: take_out,
         map: map
     });
