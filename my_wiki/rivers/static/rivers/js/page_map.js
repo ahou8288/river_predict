@@ -44,5 +44,9 @@ function initMap() {
         })(marker, index)); 
     }
 
+    google.maps.event.addListener(map, "click", function(event) {
+        infowindow.close();
+    });
+
     map_ready=true;
 }
