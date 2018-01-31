@@ -6,6 +6,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('home', views.index, name='home'),
     path('rivers', views.rivers, name='rivers'),
+    path('map', views.map, name='map'),
     path('section/create', SectionView.as_view(), name='create section'),
     path('section/edit/<slug:slug>/', SectionView.as_view(), name='edit section'),
     path('section/view/<slug:slug>/', views.sections, name='view section'),

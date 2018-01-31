@@ -4,7 +4,7 @@ from django.db.models import Max
 from rivers.forms import SectionForm, RiverForm
 from django.forms import modelformset_factory
 import sys
-from django.core import serializers
+import simplejson as json
 sys.path.insert(0, './rivers/lib')
 # import gauge_download  # this actually runs it lol
 from django.utils import timezone
@@ -18,6 +18,24 @@ from django.views.generic import TemplateView
 
 def index(request):
     return render(request, 'home.html', {'PAGE_TITLE': 'Homepage'})
+
+
+def map(request):
+    # For every section generate a point
+    sections = Section.objects.all()
+    points = []
+
+    for section in sections:
+        section_point = Point.objects.filter(section=section, point_type=0)
+        if section_point.count() == 1:
+            points.append({
+                'lat': section_point[0].latitude,
+                'lng': section_point[0].longditude,
+                'slug': section.slug,
+                'name': section.name
+            })
+    points = json.dumps(points)
+    return render(request, 'map.html', {'PAGE_TITLE': 'Map', 'points': points})
 
 
 def rivers(request):
@@ -64,16 +82,17 @@ def sections(request, slug):
     # take_out = serializers.serialize('json', [Point.objects.get(section=section, point_type=0),])
     try:
         put_in_point = Point.objects.get(section=section, point_type=0)
-        put_in = {'lat':put_in_point.latitude,'lng':put_in_point.longditude}
+        put_in = {'lat': put_in_point.latitude, 'lng': put_in_point.longditude}
         take_out_point = Point.objects.get(section=section, point_type=1)
-        take_out = {'lat':take_out_point.latitude,'lng':take_out_point.longditude}
+        take_out = {'lat': take_out_point.latitude,
+                    'lng': take_out_point.longditude}
         display_map = True
     except:
         display_map = False
         put_in = None
         take_out = None
 
-    return render(request, 'section.html', {'PAGE_TITLE': section.name, 'section': section, 'river': river, 'put_in': put_in, 'take_out': take_out, 'display_map':display_map})
+    return render(request, 'section.html', {'PAGE_TITLE': section.name, 'section': section, 'river': river, 'put_in': put_in, 'take_out': take_out, 'display_map': display_map})
 
 
 class SectionView(TemplateView):
@@ -90,11 +109,13 @@ class SectionView(TemplateView):
             section = Section.objects.get(slug=slug)
             point_query = Point.objects.filter(section=section)
             river_form = None
+            title = 'Edit Section'
         else:
             section = Section()
             section.description = "### Placeholder title\n"
             point_query = Point.objects.none()
             river_form = RiverForm()
+            title = 'New Section'
 
         # Create the forms
         form = SectionForm(instance=section)
@@ -102,7 +123,8 @@ class SectionView(TemplateView):
 
         # Render the view
         args = {'form': form, 'formset': point_formset,
-                'river_form': river_form}
+                'river_form': river_form,
+                'PAGE_TITLE': title}
         return render(request, 'create_section.html', args)
 
     def post(self, request, slug=None):
