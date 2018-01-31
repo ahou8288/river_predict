@@ -32,7 +32,8 @@ def map(request):
                 'lat': section_point[0].latitude,
                 'lng': section_point[0].longditude,
                 'slug': section.slug,
-                'name': section.name
+                'name': section.name,
+                'river': section.river.name
             })
     points = json.dumps(points)
     return render(request, 'map.html', {'PAGE_TITLE': 'Map', 'points': points})
