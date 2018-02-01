@@ -6,3 +6,5 @@ function auto_grow() {
 }
 
 desc.addEventListener('keyup',auto_grow);
+
+auto_grow();

@@ -41,7 +41,7 @@ body {
 .grid_contents {
     flex-grow: 1;
     width: 100%;
-    max-width: 800px;
+    max-width: 1100px;
     margin: 0 auto;
     padding: 5px;
 }
