@@ -26,7 +26,7 @@ def map(request):
     points = []
 
     for section in sections:
-        section_point = Point.objects.filter(section=section, point_type=0)
+        section_point = Point.objects.filter(section=section, point_type=1)
         if section_point.count() == 1:
             points.append({
                 'lat': section_point[0].latitude,

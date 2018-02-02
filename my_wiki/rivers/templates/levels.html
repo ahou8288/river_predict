@@ -1,12 +1,33 @@
 {% extends "base_page.html" %}
+{% load static %}
 {% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'rivers/css/jquery.dataTables.min.css' %}" />
+<script type="text/javascript" src="{% static 'rivers/js/jquery-1.12.4.js' %}"></script>
+<script type="text/javascript" src="{% static 'rivers/js/jquery.dataTables.min.js' %}"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#example').DataTable();
+    } );
+</script>
 <h1>River Levels</h1>
-<div class="level_grid">
-    {% for gauge in data  %}
-        <div>Name: {{ gauge.name }}</div>
-        <div>Type: {{ gauge.type }}</div>
-        <div>Value: {{ gauge.value }}</div>
-        <div>Time: {{ gauge.time }}</div>
-    {% endfor %}
-</div>
+<table id="example" class="display" cellspacing="0" width="100%">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Value</th>
+            <th>Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for gauge in data  %}
+            <tr>
+                <td>{{ gauge.name }}</td>
+                <td>{{ gauge.type }}</td>
+                <td>{{ gauge.value }}</td>
+                <td>{{ gauge.time }}</td>
+            </tr>        
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock %}
