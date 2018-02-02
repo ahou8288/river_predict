@@ -11,5 +11,5 @@ urlpatterns = [
     path('section/edit/<slug:slug>/', SectionView.as_view(), name='edit section'),
     path('section/view/<slug:slug>/', views.sections, name='view section'),
     path('river/create', RiverView.as_view(), name='create river'),
-    path('levels', views.levels, name='levels'),
+    path('levels/<int:only_favourite>/', views.levels, name='levels'),
 ]

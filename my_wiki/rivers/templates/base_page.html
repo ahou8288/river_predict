@@ -26,11 +26,14 @@
                 <a class="header_link" href="{% url 'index' %}">
                         HOME
                 </a>
-                <a class="header_link" href="{% url 'levels' %}">
-                        LEVELS
+                <a class="header_link" href="{% url 'levels' 0 %}">
+                        LEVELS ALL
+                </a>
+                <a class="header_link" href="{% url 'levels' 1 %}">
+                        LEVELS FAV
                 </a>
                 <a class="header_link" href="{% url 'rivers' %}">
-                        RIVERS
+                        GUIDES
                 </a>
                 <a class="header_link" href="{% url 'map' %}">
                         MAP

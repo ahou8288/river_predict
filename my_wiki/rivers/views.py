@@ -51,13 +51,15 @@ def rivers(request):
     return render(request, 'rivers.html', {'rivers': output, 'PAGE_TITLE': 'Rivers'})
 
 
-def levels(request):
-    if request.user.is_anonymous:
-        gauges = Gauge.objects.all()
-    else:
+def levels(request, only_favourite):
+    if not request.user.is_anonymous:
         user_gauges = Interested.objects.filter(user=request.user)
-        print(user_gauges)
-        gauges = [i.gauge for i in user_gauges]
+        favourite_gauges = [i.gauge for i in user_gauges]
+
+    if only_favourite and not request.user.is_anonymous:
+        gauges = favourite_gauges
+    else:
+        gauges = Gauge.objects.all()
 
     data = []
     for gauge in gauges:
@@ -65,12 +67,18 @@ def levels(request):
             gauge=gauge).aggregate(time=Max('time'))['time']
         try:
             level = Level.objects.get(gauge=gauge, time=latest_time)
-            data.append({
+            entry = {
                 'name': gauge.name,
                 'type': level.unit,
                 'value': level.value,
                 'time': level.time
-            })
+            }
+            
+            # If the user is logged in show his favourites
+            if not request.user.is_anonymous:
+                entry['favourite'] = gauge in favourite_gauges
+
+            data.append(entry)
         except:
             pass
     return render(request, 'levels.html', {'PAGE_TITLE': 'Levels', 'data': data})

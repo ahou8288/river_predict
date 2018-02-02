@@ -2,6 +2,7 @@
 {% load static %}
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'rivers/css/jquery.dataTables.min.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'rivers/css/font-awesome.css' %}" />
 <script type="text/javascript" src="{% static 'rivers/js/jquery-1.12.4.js' %}"></script>
 <script type="text/javascript" src="{% static 'rivers/js/jquery.dataTables.min.js' %}"></script>
 <script type="text/javascript">
@@ -9,7 +10,9 @@
         $('#example').DataTable();
     } );
 </script>
+
 <h1>River Levels</h1>
+
 <table id="example" class="display" cellspacing="0" width="100%">
     <thead>
         <tr>
@@ -17,6 +20,10 @@
             <th>Type</th>
             <th>Value</th>
             <th>Time</th>
+            {% if user.is_authenticated %}
+                <th>Favourite</th>
+            {% endif %}
+
         </tr>
     </thead>
     <tbody>
@@ -26,8 +33,18 @@
                 <td>{{ gauge.type }}</td>
                 <td>{{ gauge.value }}</td>
                 <td>{{ gauge.time }}</td>
-            </tr>        
+                    {% if user.is_authenticated %}
+                    <td>
+                        {% if gauge.favourite %}
+                            <span class="fa-heart fa-2x fa" style="color: pink;"></span>
+                        {% else %}
+                            <span class="fa-heart fa-2x fa" style="color: grey;"></span>
+                        {% endif %}
+                    </td>
+                {% endif %}
+            </tr>
         {% endfor %}
     </tbody>
 </table>
+
 {% endblock %}
