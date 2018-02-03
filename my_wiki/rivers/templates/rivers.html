@@ -2,18 +2,23 @@
 {% block content %}
 
 <h1>Rivers</h1>
-{% for river in rivers  %}
-    <div>{{ river.name }}</div>
-    <ul>
-        {% for section in river.sections %}
-            <a href="{% url 'view section' section.slug %}">
-                <li>
-                    {{ section.name }}
-                </li>
-            </a>
-        {% endfor %}
-    </ul>
-{% endfor %}
+<span class="all_rivers">
+        
+    {% for river in rivers  %}
+        <span class="river">
+            <div>{{ river.name }}</div>
+            <ul>
+                {% for section in river.sections %}
+                    <a href="{% url 'view section' section.slug %}">
+                        <li>
+                            {{ section.name }}
+                        </li>
+                    </a>
+                {% endfor %}
+            </ul>    
+        </span>
+    {% endfor %}
+</span>
 
 <p>
     <a href="{% url 'create section' %}">

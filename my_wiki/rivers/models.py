@@ -54,7 +54,7 @@ class Section(models.Model):
     last_edit_time = models.DateField(null=True)
 
     # Linking
-    url_id = models.IntegerField(null=True)
+    url_id = models.CharField(max_length=100,null=True)
     slug = models.SlugField()
 
     def __str__(self):
