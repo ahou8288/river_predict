@@ -24,7 +24,6 @@ class Command(BaseCommand):
         for filename in filelist:
             with open(filepath + '/' + filename, 'r') as handle:
                 river = json.load(handle)
-            pprint(river)
             river_name = river['WATERWAY']
 
             # Create river if required
@@ -82,7 +81,7 @@ class Command(BaseCommand):
                             field.title(), river[field])
 
                 my_section.description = description_text
-
+                my_section.url_id = river['URL_ID']
                 my_section.river = River.objects.get(name=river_name)
                 my_section.save()
                 print('{} section has been created.'.format(section_name))

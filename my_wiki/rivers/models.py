@@ -56,6 +56,7 @@ class Section(models.Model):
     # Linking
     url_id = models.CharField(max_length=100,null=True)
     slug = models.SlugField()
+    flag = models.BooleanField()
 
     def __str__(self):
         return self.name
