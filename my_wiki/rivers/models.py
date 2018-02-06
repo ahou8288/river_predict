@@ -6,17 +6,20 @@ from markdownx.utils import markdownify
 from django.urls import reverse
 
 
-class River(models.Model):
+class Gauge(models.Model):
     name = models.CharField(max_length=100)
-    description = models.CharField(max_length=1000)
+    download_id = models.CharField(max_length=10)
+    get_url = models.URLField()
 
     def __str__(self):
         return self.name
 
 
-class Gauge(models.Model):
+class River(models.Model):
     name = models.CharField(max_length=100)
-    download_id = models.CharField(max_length=10)
+    description = models.CharField(max_length=1000)
+    gauge = models.ForeignKey(Gauge, on_delete=models.SET_NULL, null=True)
+    level_gauge = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name
@@ -41,7 +44,6 @@ class Section(models.Model):
     description = MarkdownxField(default='')
 
     # levels related
-    gauge = models.ForeignKey(Gauge, on_delete=models.SET_NULL, null=True)
     minimum = models.FloatField(null=True)
 
     # Editing
@@ -54,7 +56,7 @@ class Section(models.Model):
     last_edit_time = models.DateField(null=True)
 
     # Linking
-    url_id = models.CharField(max_length=100,null=True)
+    url_id = models.CharField(max_length=100, null=True)
     slug = models.SlugField()
     flag = models.BooleanField()
 
@@ -76,6 +78,7 @@ class Section(models.Model):
 class Interested(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     gauge = models.ForeignKey(Gauge, on_delete=models.CASCADE)
+
 
 class Point(models.Model):
     POINT_TYPES = (

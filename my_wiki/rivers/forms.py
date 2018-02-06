@@ -7,7 +7,7 @@ class SectionForm(ModelForm):
 
     class Meta:
         model = Section
-        fields = ['name', 'river', 'grade', 'description', 'gauge', 'minimum']
+        fields = ['name', 'river', 'grade', 'description', 'minimum']
         myfield = MarkdownxFormField()
 
     def __init__(self, *args, **kwargs):
@@ -20,4 +20,4 @@ class RiverForm(ModelForm):
 
     class Meta:
         model = River
-        fields = ['name', 'description']
+        fields = ['name', 'description', 'gauge']
