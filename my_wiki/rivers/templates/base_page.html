@@ -1,8 +1,10 @@
 <html>
     <head>
         {% load static %}
-        <link rel="stylesheet" type="text/css" href="{% static 'rivers/css/base.css' %}" />
+        <!-- <link rel="stylesheet" type="text/css" href="{% static 'rivers/css/min.css' %}" /> -->
+        <link rel="stylesheet" type="text/css" href="{% static 'rivers/css/menu.css' %}" />
         <link rel="shortcut icon" type="image/png" href="{% static 'rivers/images/drop.ico' %}" />
+        <script type="text/javascript" src="{% static 'rivers/js/toggleNav.js' %}"></script>
         
         <title>
             {% if PAGE_TITLE %}
@@ -13,61 +15,44 @@
         </title>
     </head>
 
-    <body class="page">
-        <div id="new_header">
-            <!-- Site Logo -->
-            <span class="site_logo">
-                <a href="{% url 'index' %}">
-                    <img src="{% static 'rivers/images/WW_NSW_logo_small_tran.png' %}">
-                </a>
-            </span>
-            <!-- Site links -->
-            <span id="header_links">
-                <a class="header_link" href="{% url 'index' %}">
-                        HOME
-                </a>
+    <body><!-- The overlay -->
+        <!-- Use any element to open/show the overlay navigation menu -->
+
+
+        <div id="myNav" class="overlay">
+            <div id="navbutton" class="closebtn" onclick="toggleNav()">&#9776;</div>
+
+            <!-- Overlay content -->
+            <div class="overlay-content">
+                <a href="{% url 'index' %}">HOME</a>
                 {% if user.is_authenticated %}
-                    <a class="header_link" href="{% url 'levels' 0 %}">
-                            LEVELS ALL
-                    </a>
-                    <a class="header_link" href="{% url 'levels' 1 %}">
-                            LEVELS FAV
-                    </a>
+                        <a href="{% url 'levels' 0 %}">LEVELS ALL</a>
+                        <a href="{% url 'levels' 1 %}">LEVELS FAV</a>
                 {% else %}
-                    <a class="header_link" href="{% url 'levels' 0 %}">
-                            LEVELS
-                    </a>
+                        <a href="{% url 'levels' 0 %}">LEVELS</a>
                 {% endif %}
-                <a class="header_link" href="{% url 'rivers' %}">
-                        GUIDES
-                </a>
-                <a class="header_link" href="{% url 'map' %}">
-                        MAP
-                </a>
-            </span>
-            <!-- Login info -->
-            <span id="login_links">
+                <a href="{% url 'rivers' %}">GUIDES</a>
+                <a href="{% url 'map' %}">MAP</a>
                 {% if user.is_authenticated %}
-                    <a class="login_link" href="{% url 'logout' %}">
-                        LOG OUT
-                    </a>
+                        <a href="{% url 'logout' %}">LOG OUT</a>
                 {% else %}
-                    <a class="login_link" href="{% url 'login' %}">
-                        LOG IN
-                    </a>
-                    <a class="login_link" href="{% url 'login' %}">
-                        REGISTER
-                    </a>
+                        <a href="{% url 'login' %}">LOG IN</a>
+                        <a href="{% url 'login' %}">REGISTER</a>
                 {% endif %}
-            </span>
+            </div>
         </div>
 
-        <div class="grid_contents">
+        <div id="pagebutton" class="closebtn headerrow" onclick="toggleNav()">
+            &#9776;
+        </div>
+        <div class="content">
             {% block content %}
             {% endblock %}
         </div>
+
         <footer class="footer">
             Website developed by Andrew Houghton
         </footer>
     </body>
 </html>
+
