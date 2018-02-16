@@ -4,7 +4,6 @@
         <!-- <link rel="stylesheet" type="text/css" href="{% static 'rivers/css/min.css' %}" /> -->
         <link rel="stylesheet" type="text/css" href="{% static 'rivers/css/menu.css' %}" />
         <link rel="shortcut icon" type="image/png" href="{% static 'rivers/images/drop.ico' %}" />
-        <script type="text/javascript" src="{% static 'rivers/js/toggleNav.js' %}"></script>
         
         <title>
             {% if PAGE_TITLE %}
@@ -20,7 +19,7 @@
 
 
         <div id="myNav" class="overlay">
-            <div id="navbutton" class="closebtn" onclick="toggleNav()">&#9776;</div>
+            <div id="navbutton" class="closebtn toprowitem" onclick="toggleNav()">&#9776;</div>
 
             <!-- Overlay content -->
             <div class="overlay-content">
@@ -41,18 +40,22 @@
                 {% endif %}
             </div>
         </div>
-
-        <div id="pagebutton" class="closebtn headerrow" onclick="toggleNav()">
-            &#9776;
+        <div id="wholepage">
+            <div class="headerrow">
+                <div class="closebtn toprowitem" onclick="toggleNav()">&#9776;</div>
+                <div class="headertext toprowitem">{{ PAGE_TITLE }}</div>
+                <br style="clear:both;">
+            </div>
+            <div class="content">
+                {% block content %}
+                {% endblock %}
+            </div>
+            <footer class="footer">
+                Website developed by Andrew Houghton
+            </footer>
         </div>
-        <div class="content">
-            {% block content %}
-            {% endblock %}
-        </div>
-
-        <footer class="footer">
-            Website developed by Andrew Houghton
-        </footer>
     </body>
+    <script type="text/javascript" src="{% static 'rivers/js/toggleNav.js' %}"></script>
+    
 </html>
 
