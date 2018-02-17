@@ -1,4 +1,6 @@
 {% extends "base_page.html" %}
 {% block content %}
-Homepage
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'rivers/page_css/homepage.css' %}" />
+<div id="myimage" style="background-image: url('{% static 'rivers/images/DSC07362.jpg' %}');"></div>
 {% endblock %}

@@ -2,6 +2,7 @@
 html, body {
     font-family: 'Lato', sans-serif;
     margin: 0;
+    height: 100%;
     padding: 0;
 }
 
@@ -41,17 +42,13 @@ html, body {
     color: #f1f1f1;
 }
 
-.headerrow {
-    width: 100%;
-}
-
-.headerrow .headertext {
+.header .headertext {
     text-align: center;
-    margin: 0;
+    flex-grow: 1;
 }
 
 .toprowitem {
-    padding: 1em;
+    padding: 0.5em;
     font-size: 30px;
 }
 
@@ -80,7 +77,29 @@ html, body {
     }
 }
 
-#wholepage {
-    height: 100%;
+.footer {
+    position:fixed;
+    bottom:0;
+    left:0;
+    background-color: #000;
+    color: #fff;
+    font-size: 14px;
+    padding-bottom:4px; 
+    padding-top:4px;
     width: 100%;
+    text-align: center;
+}
+
+.header {
+    display: flex;
+    background-color: rgba(200,200,200,0.97);
+}
+
+.content {
+    margin-bottom: 100%;
+}
+
+#wholepage {
+    overflow-y:hidden;
+    height: 100%;
 }
