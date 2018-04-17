@@ -1,0 +1,4 @@
+django
+django-markdownx
+django-reversion
+simplejson
