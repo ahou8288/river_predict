@@ -1,6 +1,0 @@
-https://www.adventurepro.com.au/paddleaustralia/pa.cgi?search=.&cat=CLASS6
-https://www.adventurepro.com.au/paddleaustralia/pa.cgi?sta=1&end=100&search=.&sor=31&fie=all&max=10&typ=ALL_the_Words&cat=CLASS5&loc=Australia&spc=
-https://www.adventurepro.com.au/paddleaustralia/pa.cgi?sta=1&end=201&search=.&sor=31&fie=all&max=10&typ=ALL_the_Words&cat=CLASS4&loc=Australia&spc=
-https://www.adventurepro.com.au/paddleaustralia/pa.cgi?sta=1&end=210&search=.&sor=31&fie=all&max=10&typ=ALL_the_Words&cat=CLASS3&loc=Australia&spc=
-https://www.adventurepro.com.au/paddleaustralia/pa.cgi?sta=1&end=210&search=.&sor=31&fie=all&max=10&typ=ALL_the_Words&cat=CLASS2&loc=Australia&spc=
-https://www.adventurepro.com.au/paddleaustralia/pa.cgi?sta=1&end=220&search=.&sor=31&fie=all&max=10&typ=ALL_the_Words&cat=CLASS1&loc=Australia&spc=
