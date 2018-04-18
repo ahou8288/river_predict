@@ -25,8 +25,7 @@ SECRET_KEY = '@yn1s%u63z$*2p32*1k^ls4x!)4=nd-z%i8lf=u@w2vuak)=-v'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.102', '0.0.0.0',
-                 '127.0.0.1', ]  # my phone for testing
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -77,12 +76,31 @@ WSGI_APPLICATION = 'my_wiki.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+# [START dbconfig]
+if os.getenv('GAE_INSTANCE'):
+    DATABASES = {
+        'default': {
+            # If you are using Cloud SQL for MySQL rather than PostgreSQL, set
+            # 'ENGINE': 'django.db.backends.mysql' instead of the following.
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'polls',
+            'USER': '<your-database-user>',
+            'PASSWORD': '<your-database-password>',
+            # For MySQL, set 'PORT': '3306' instead of the following. Any Cloud
+            # SQL Proxy instances running locally must also be set to tcp:3306.
+            'PORT': '5432',
+        }
     }
-}
+    DATABASES['default']['HOST'] = '/cloudsql/<your-cloudsql-connection-string>'
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
+    DATABASES['default']['HOST'] = '127.0.0.1'
+# [END dbconfig]
 
 
 # Password validation
@@ -121,7 +139,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = 'https://storage.googleapis.com/rivers-storage/static/'
 
 WEBSITE_TITLE = 'Whitewater NSW'
 
@@ -133,3 +151,5 @@ from datetime import datetime
 MEDIA_ROOT = BASE_DIR + '/media/'
 # MARKDOWNX_MEDIA_PATH = datetime.now().strftime('/markdownx/%Y/%m/%d')
 # MARKDOWNX_EDITOR_RESIZABLE = True
+
+STATIC_ROOT = 'static/'
