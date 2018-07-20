@@ -1,0 +1,12 @@
+http://waterinfo.nsw.gov.au/drr/data/darling.river.html
+http://waterinfo.nsw.gov.au/drr/data/all.river.html
+http://waterinfo.nsw.gov.au/drr/data/macquarie.river.html
+http://waterinfo.nsw.gov.au/drr/data/border.river.html
+http://waterinfo.nsw.gov.au/drr/data/hunter.river.html
+http://waterinfo.nsw.gov.au/drr/data/gwydir.river.html
+http://waterinfo.nsw.gov.au/drr/data/lachlan.river.html
+http://waterinfo.nsw.gov.au/drr/data/murray.river.html
+http://waterinfo.nsw.gov.au/drr/data/murrumbidgee.river.html
+http://waterinfo.nsw.gov.au/drr/data/namoi.river.html
+http://waterinfo.nsw.gov.au/drr/data/northcoast.river.html
+http://waterinfo.nsw.gov.au/drr/data/southcoast.river.html

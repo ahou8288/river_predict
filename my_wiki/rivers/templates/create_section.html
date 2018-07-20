@@ -1,0 +1,80 @@
+{% extends "base_page.html" %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'rivers/css/sectiongrid.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'rivers/css/sectionstyle.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'rivers/css/table.css' %}" />
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuNRjdEY7DeYqRRov1czGcgS9hmLBwmc4"></script>
+<script type="text/javascript" src="{% static 'rivers/js/mapbutton.js' %}"></script>
+<script type="text/javascript" src="{% static 'rivers/js/maps.js' %}"></script>
+
+<h1>Create Section</h1>
+
+<form method="post" id="formgrid" class="formgrid">
+    {% csrf_token %}
+
+    <p class="river_lookup">
+        Select existing river<br/>
+        {{ form.river.label_tag }}
+        {{ form.river }}
+    </p>
+    {% if river_form %}
+        <p class="river_create">
+            OR Add new river.<br/>
+            {{ river_form.name.label_tag }}
+            {{ river_form.name }}
+            <br/>
+            {{ river_form.description.label_tag }}
+            {{ river_form.description }}
+        </p>
+    {% endif %}
+
+    <p class="nickname">
+        Section 
+        {{ form.name.label_tag }}
+        {{ form.name }}
+    </p>
+
+    <p class="gauge">
+        {{ form.gauge.label_tag }}
+        {{ form.gauge }}
+    </p>
+
+    <p class="minimum">
+        {{ form.minimum.label_tag }}
+        {{ form.minimum }}
+    </p>
+
+    <p class="grade">
+        Gauge
+        {{ form.grade.label_tag }}
+        {{ form.grade }}
+    </p>
+
+    <div class="markdownx">
+        {{ form.description.label_tag }}
+        {{ form.description }}
+        {{ form.media }}
+    </div>
+
+    <div class="map_container">
+        Map of section
+        <div id="map"></div>
+    </div>
+
+    {{ formset.management_form }}
+    {% for form in formset %}
+        <div hidden>
+            Point {{ forloop.counter }}
+            {{ form.as_p }}
+        </div>
+    {% endfor %}
+
+    <br>
+    <button onclick="submitForm()" class="submit_button">Submit</button>
+
+</form>
+
+<script type="text/javascript" src="{% static 'rivers/js/section.js' %}"></script>
+
+{% endblock %}

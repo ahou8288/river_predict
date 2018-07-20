@@ -1,0 +1,44 @@
+
+.formgrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+    'river_lookup river_create'
+    'nickname nickname'
+    'gauge minimum'
+    'grade grade'
+    'desc desc'
+    'map_container map_container'
+    'submit_button submit_button'
+}
+
+.river_lookup { grid-area: river_lookup; }
+.river_create { grid-area: river_create; }
+.nickname { grid-area: nickname; }
+.gauge { grid-area: gauge; }
+.minimum { grid-area: minimum; }
+.grade { grid-area: grade; }
+.submit_button { grid-area: submit_button; }
+.markdownx { grid-area: desc; }
+.map_container { grid-area: map_container; }
+
+textarea#id_description {
+    width: 100%;
+    resize: none;
+    overflow: hidden;
+    /*min-height: 50px;*/
+    /*max-height: 100px;*/
+}
+
+div#map {
+    width: 100%;
+    min-height: 400px;
+}
+
+.formgrid>.markdownx {
+    padding: 5px 10px 5px 10px;
+    border-width: 2px;
+    border-color: grey;
+    border-style: solid;
+}

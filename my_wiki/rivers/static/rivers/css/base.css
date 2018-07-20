@@ -1,0 +1,106 @@
+/* ELEMENT STYLING */
+h1,h2,h3 {
+    line-height:1.2;
+}
+
+body {
+    color:#444;
+    line-height:1.2;
+}
+
+
+a.header_link, a.login_link {
+    font-family: "Circular","Helvetica Neue",Helvetica,Arial,sans-serif;
+    color:#444;
+    font-weight: bold;
+    text-decoration:none;
+    text-align: center;
+}
+
+div#new_header {
+    width: 100%;
+    box-sizing: border-box;
+    border-style: none none outset none;
+    border-width: 3px;
+}
+
+.grid_contents {
+    border-width: 2px;
+    border-style: none outset none inset ;
+}
+
+/* LAYOUT */
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.grid_contents {
+    flex-grow: 1;
+    width: 100%;
+    box-sizing: border-box;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 5px;
+}
+
+div#new_header {
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+span#header_links, span#login_links {
+    display: -ms-flex;
+    display: -webkit-flex;
+    display: flex;
+}
+
+a.header_link, a.login_link {
+    padding-right: 10px;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.footer {
+    padding-bottom:4px; 
+    padding-top:4px;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+/* COLOUR */
+#new_header {
+    background-color: rgba(255,255,255,0.97);
+}
+
+.footer {
+    background-color: #000;
+    color: #fff;
+    font-size: 14px;
+}
+
+.grid_contents {
+    background-color: #CDCDCD;
+}
+
+body {
+    background-color: #E9E9E9;
+}
+
+/* Other styles; */
+/*link hover*/
+span#header_links>a:hover, span#login_links>a:hover {
+    background-color:rgba(0, 0, 0, 0.1);
+    border-bottom: 3px solid grey; /* or whatever colour you'd prefer */
+}

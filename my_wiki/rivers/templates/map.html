@@ -1,0 +1,16 @@
+{% extends "base_page.html" %}
+{% load static %}
+{% block content %}
+<script type='text/javascript'>
+var points = {{ points|safe }};
+</script>
+<script type="text/javascript" src="{% static 'rivers/js/page_map.js' %}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuNRjdEY7DeYqRRov1czGcgS9hmLBwmc4&callback=initMap" async defer></script>
+
+<h2>Map of NSW Rivers</h2>
+Click on a point to see section information.
+
+<div id="map" style="height: 600px;"></div>
+
+
+{% endblock %}

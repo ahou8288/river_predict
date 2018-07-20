@@ -1,0 +1,48 @@
+{% extends "base_page.html" %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'rivers/css/table.css' %}" />
+
+{% if display_map %}
+    <script type="text/javascript">
+        var put_in = {lat:{{ put_in.lat }},lng:{{ put_in.lng }}}
+        var take_out = {lat:{{ take_out.lat }},lng:{{ take_out.lng }}}
+    </script>
+    <script type="text/javascript" src="{% static 'rivers/js/section_map.js' %}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuNRjdEY7DeYqRRov1czGcgS9hmLBwmc4&callback=initMap" async defer></script>
+{% endif %}
+
+<h2>{{ river.name }}</h2>
+<h4>{{ section.name }}</h4>
+
+<a href="{% url 'edit section' section.slug %}">Edit this page</a>
+
+<h5>Grade: {{ section.grade }}</h5>
+<h5>Minimum Level: {{ section.minimum }}</h5>
+
+Guide Content:
+<p>
+    {{ section.description_markdown|safe }}
+</p>
+
+
+{% if display_map %}
+    <div id="map" style="height: 300px;"></div>
+{% endif %}
+
+<h3>Disclaimer</h3>
+<p>
+    <em>
+        This information is intended as a guide and is prone to error. The author and contributors accept no responsibility for loss, inconvenience or injury as a result of the information in this guide.
+    </em>
+</p>
+
+
+<p>
+    Guide created by {{ section.creator }} on {{ section.creation_time }}    
+</p>
+<p>
+    Last edited by {{ section.recent_editor }} on {{ section.last_edit_time }}
+</p>
+
+{% endblock %}
